@@ -63,12 +63,9 @@ Route::get('resident-editProfile', [ProfileController::class, 'editProfile'])->n
 Route::post('resident-editProfile', [ProfileController::class, 'editProfilePost'])->name('resident-editProfile.post');
 
 //Announcements
-Route::get('resident-announcement', function () {
-    return view('resident/announcement/announcement');
-})->name('resident-announcement')->middleware('resident');
-Route::get('resident-announcementDetails', function () {
-    return view('resident/announcement/announcementDetails');
-})->name('resident-announcementDetails');
+Route::get('resident-announcement', [AnnouncementController::class, 'residentAnnouncement'])->name('resident-announcement');
+Route::get('resident-announcementDetails-{id}', [AnnouncementController::class, 'announcementDetails'])->name('resident-announcementDetails');
+Route::post('resident-comment', [AnnouncementController::class, 'postComment'])->name('resident-comment');
 
 //Registration
 Route::get('resident-registrationHistory', [RegistrationController::class, 'history'])->name('resident-registrationHistory');

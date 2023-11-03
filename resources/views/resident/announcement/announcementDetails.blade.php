@@ -35,46 +35,56 @@
             color: #525252;
         }
     </style>
-    <a class="btn btn-secondary" href="resident-announcement" title="Back to Announcements"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
+    <a class="btn btn-secondary" href="{{route('resident-announcement')}}" title="Back to Announcements"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
     <h1>Announcements Details</h1>
 
 
     <table class="table announcement-details">
         <tr>
             <th scope="row" class="table-secondary" style="width: 50%">
-                <img class="poster" src="{{ asset('images/announcement/poster-1.jpg') }}" alt="Poster">
+                <img class="poster" src="{{ asset('images/announcement/' . $announcement->image) }}" alt="Poster">
             </th>
             <td>
-                <table class="table announcement-description">
+            <table class="table announcement-description">
                     <tr style="height: 40%">
                         <td>
-                            <h3>Title</h3>
-                            <p class="content">Content here...</p>
-                            <div class="date">Date</div>
+                            <h3>{{ $announcement->title }}</h3>
+                            <p class="content">{!! nl2br(e($announcement->content)) !!}</p>
+                            <div class="date">created at {{ $announcement->created_at }}</div>
                         </td>
                     </tr>
                     <tr style="height: 50%">
                         <td>
                             <div class="commentList">
-                                @for ($i = 0; $i < 6; $i++)
-                                <div class="comment">
-                                    <div class="name">Name</div>
-                                    <div class="comment-details">Comment</div>
-                                    <div class="date">Date</div>
-                                </div>
-                                </br>
-                                @endfor
+                                @if ($comments->isEmpty())
+                                    <p class="alert alert-danger">No comment yet.</p>
+                                @else
+                                    @foreach($comments as $item)
+                                    <div class="comment">
+                                        <div class="name">{{ $item->name }}</div>
+                                        <div class="comment-details">{{ $item->content }}</div>
+                                        <div class="date">{{ $item->created_at }}</div>
+                                    </div>
+                                    </br>
+                                    @endforeach
+                                @endif
                             </div>
                         </td>
                     </tr>
                     <tr style="height: 10%">
                         <td>
-                            <form action="" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="comment" id="comment" placeholder="Type your comment..." value=""><br>
-                            </div>
-                        </form>
+                            <form action="{{route('admin-comment')}}" method="post" onsubmit="confirm('Are you sure to post this comment?');">
+                                @csrf
+                                <div class="input-group mb-3">
+                                    <input type="hidden" class="form-control" name="user_id" id="user_id" value="{{auth()->user()->id}}">
+                                    <input type="hidden" class="form-control" name="user_role" id="user_role" value="{{auth()->user()->role}}">
+                                    <input type="hidden" class="form-control" name="announcement_id" id="announcement_id" value="{{ $announcement->announcement_id }}">
+                                    <input type="text" class="form-control" name="comment" id="comment" placeholder="Type your comment..." aria-label="comment" aria-describedby="basic-addon2" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 </table>

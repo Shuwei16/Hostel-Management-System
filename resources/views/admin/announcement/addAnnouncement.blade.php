@@ -84,4 +84,45 @@
             <button type="submit">Add</button><br><br>
         </div>
     </form>
+
+    <script>
+        const publicitySelect = document.getElementById('publicity');
+        const announcedBlockSelect = document.getElementById('announced_block');
+        const announcedGenderSelect = document.getElementById('announced_gender');
+
+        // Function to enable or disable the other input fields based on the selected option
+        function toggleInputField() {
+            if (publicitySelect.value === 'Public') {
+                announcedBlockSelect.value = 'All';
+                announcedGenderSelect.value = 'All';
+                announcedBlockSelect.disabled = true;
+                announcedGenderSelect.disabled = true;
+            } else {
+                if (announcedBlockSelect.value !== 'All') {
+                    announcedGenderSelect.value = 'All';
+                    announcedGenderSelect.disabled = true;
+                } else {
+                    announcedGenderSelect.disabled = false;
+                }
+
+                if (announcedGenderSelect.value !== 'All') {
+                    announcedBlockSelect.value = 'All';
+                    announcedBlockSelect.disabled = true;
+                } else {
+                    announcedBlockSelect.disabled = false;
+                }
+            }
+        }
+
+        // Call the function to set the initial state based on the selected option
+        toggleInputField();
+
+        // Add an event listener to the "Publicity" dropdown to update the state when its value changes
+        publicitySelect.addEventListener('change', toggleInputField);
+        // Add an event listener to the "Announced Block" dropdown to update the state when its value changes
+        announcedBlockSelect.addEventListener('change', toggleInputField);
+        // Add an event listener to the "Announced Gender" dropdown to update the state when its value changes
+        announcedGenderSelect.addEventListener('change', toggleInputField);
+        
+    </script>
 @endsection

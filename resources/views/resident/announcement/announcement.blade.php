@@ -33,28 +33,28 @@
     <h1>Announcements</h1>
     <div class="announcement-containter">
         <div class="row">
-            @for ($i = 0; $i < 6; $i++)
+            @foreach ($announcements as $item)
             <div class="col-md-3 announcement-col">
-                <a href="resident-announcementDetails">
+                <a href="{{route('resident-announcementDetails', ['id'=>$item->announcement_id])}}">
                 <div class="card announcement" style="">
-                    <img class="card-img-top poster" src="{{ asset('images/announcement/poster-1.jpg') }}" alt="Poster">
+                    <img class="card-img-top poster" src="{{ asset('images/announcement/' . $item->image) }}" alt="Poster">
                     <div class="card-body">
                         <h4 class="card-text title">
                             @php
-                                $content = "title 2222 22222 2222222 2222222 22222 222222 22222 222222"
+                                $title = "$item->title"
                             @endphp
-                            @if(strlen($content) > 45)
-                                {{ Str::limit($content, 45, '...') }}
+                            @if(strlen($title) > 45)
+                                {{ Str::limit($title, 45, '...') }}
                             @else
-                                {{ $content }}
+                                {{ $title }}
                             @endif
                         </h4>
-                        <p class="date">date</p>
+                        <p class="date">posted on {{ $item->created_at }}</p>
                     </div>
                 </div>
                 </a>
             </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 @endsection

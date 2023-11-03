@@ -32,8 +32,8 @@ class RegistrationController extends Controller
         if ($semester !== null) {
             // check whether have registered
             $student = Student::where('user_id', auth()->id())
-            ->select('student_id')
-            ->first();
+                              ->select('student_id')
+                              ->first();
 
             if ($student !== null) {
             $registration = Registration::where('student_id', $student->student_id)

@@ -3,6 +3,23 @@
 @section('content')
     <h1>Hostel Registrations <a class="btn btn-primary" href="admin-semesters" title="Manage Semesters" style="font-size: 1vmax; float: right;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Manage Application Semesters</a></h1><br>
 
+    <!-- Any message within the page -->
+    @if($errors->any())
+        <div class="col-12">
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger" style="width: 100%">{{$error}}</div>
+            @endforeach
+        </div>
+    @endif
+
+    @if(session()->has('error'))
+        <div class="alert alert-danger" style="width: 100%">{{session('error')}}</div>
+    @endif
+
+    @if(session()->has('success'))
+        <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
+    @endif
+
     <table class="table" style="font-size: 1vmax">
         <thead>
             <tr>

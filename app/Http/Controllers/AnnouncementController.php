@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Block;
 use App\Models\Announcement;
 use App\Models\Comment;
+use App\Models\Student;
+use App\Models\Registration;
+use App\Models\Room;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -70,7 +73,12 @@ class AnnouncementController extends Controller
                            ->orderBy('comment_id', 'desc')
                            ->get();
 
-        return view('admin/announcement/announcementDetails', ['announcement' => $announcement, 'comments' => $comments]);
+        if(auth()->user()->role == 2) {
+            return view('admin/announcement/announcementDetails', ['announcement' => $announcement, 'comments' => $comments]);
+        }
+
+        return view('resident/announcement/announcementDetails', ['announcement' => $announcement, 'comments' => $comments]);
+        
     }
 
     function postComment(Request $request){
@@ -91,6 +99,8 @@ class AnnouncementController extends Controller
         if($request->user_role == 2){
             return redirect(route('admin-announcementDetails', ['id'=>$request->announcement_id]))->with("success", "Your comment has been posted successfully!");
         }
+
+        return redirect(route('resident-announcementDetails', ['id'=>$request->announcement_id]))->with("success", "Your comment has been posted successfully!");
     }
 
     function editAnnouncement($id){
@@ -143,5 +153,27 @@ class AnnouncementController extends Controller
         $announcement->delete();
 
         return redirect(route('admin-announcement'))->with("success", "Announcement deleted!");
+    }
+
+    function residentAnnouncement(){
+        // get resident info
+        $student = Student::where('user_id', auth()->id())
+                          ->select('student_id', 'gender')
+                          ->first();
+        $registration = Registration::where('student_id', $student->student_id)
+                                    ->select('room_id')
+                                    ->first();
+        $block = Room::where('room_id', $registration->room_id)
+                     ->join('blocks', 'blocks.block_id', '=', 'rooms.block_id')
+                     ->select('block_name')
+                     ->first();
+
+        // get announcements
+        $announcements = Announcement::whereIn('announced_gender', [$student->gender, 'All'])
+                                     ->whereIn('announced_block', [$block->block_name, 'All'])
+                                     ->orderBy('announcement_id', 'desc')
+                                     ->get();
+                        
+        return view('resident/announcement/announcement', ['announcements' => $announcements]);
     }
 }

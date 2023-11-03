@@ -104,7 +104,7 @@
                                     <input type="hidden" class="form-control" name="announcement_id" id="announcement_id" value="{{ $announcement->announcement_id }}">
                                     <input type="text" class="form-control" name="comment" id="comment" placeholder="Type your comment..." aria-label="comment" aria-describedby="basic-addon2" required>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                        <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </form>

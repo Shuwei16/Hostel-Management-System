@@ -1,7 +1,7 @@
 @extends('layouts/master_admin')
 
 @section('content')
-    <h1>Announcements <a class="btn btn-success" href="admin-addAnnouncement" title="Manage Semesters" style="font-size: 1vmax; float: right;"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a></h1><br>
+    <h1>Announcements <a class="btn btn-success" href="admin-addAnnouncement" title="Add Announcement" style="font-size: 1vmax; float: right;"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a></h1><br>
 
     <!-- Any message within the page -->
     @if($errors->any())

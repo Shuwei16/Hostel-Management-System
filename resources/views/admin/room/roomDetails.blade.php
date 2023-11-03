@@ -4,7 +4,7 @@
     <a class="btn btn-secondary" href="admin-roomManagement" title="Back to Rooms"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
     <h1>Room Details</h1>
 
-    <!-- Any error within the page -->
+    <!-- Any message within the page -->
     @if($errors->any())
         <div class="col-12">
             @foreach($errors->all() as $error)
