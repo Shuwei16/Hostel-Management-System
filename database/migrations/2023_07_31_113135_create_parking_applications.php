@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('color');
             $table->string('plate_no');
             $table->string('status');
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

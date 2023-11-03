@@ -3,6 +3,23 @@
 @section('content')
     <h1>Announcements <a class="btn btn-success" href="admin-addAnnouncement" title="Manage Semesters" style="font-size: 1vmax; float: right;"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a></h1><br>
 
+    <!-- Any message within the page -->
+    @if($errors->any())
+        <div class="col-12">
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger" style="width: 100%">{{$error}}</div>
+            @endforeach
+        </div>
+    @endif
+
+    @if(session()->has('error'))
+        <div class="alert alert-danger" style="width: 100%">{{session('error')}}</div>
+    @endif
+
+    @if(session()->has('success'))
+        <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
+    @endif
+
     <table class="table" style="font-size: 1vmax">
         <thead>
             <tr>
@@ -16,17 +33,17 @@
             </tr>
         </thead>
         <tbody>
-            @for ($i = 0; $i < 6; $i++)
+            @foreach($announcements as $item)
                 <tr>
-                    <th scope="row">{{ $i+1 }}</th>
-                    <td>title here...</td>
-                    <td>date</td>
-                    <td>All</td>
-                    <td>Female</td>
-                    <td>Private</td>
-                    <td><a class="btn btn-info btn-sm" href="admin-announcementDetails" title="View Registration" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $item->title }}</td>
+                    <td>{{ $item->created_at }}</td>
+                    <td>{{ $item->announced_block }}</td>
+                    <td>{{ $item->announced_gender }}</td>
+                    <td>{{ $item->publicity }}</td>
+                    <td><a class="btn btn-info btn-sm" href="{{route('admin-announcementDetails', ['id'=>$item->announcement_id])}}" title="View Announcement" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
                 </tr>
-            @endfor
+            @endforeach
         </tbody>
     </table>
     <div class="d-flex justify-content-center">

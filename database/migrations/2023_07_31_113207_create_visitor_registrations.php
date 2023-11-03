@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id('visitor_reg_id');
             $table->integer('student_id');
             $table->string('visitor_name');
-            $table->string('visit_purpose');
+            $table->text('visit_purpose');
             $table->date('visit_date');
             $table->time('visit_time');
             $table->integer('duration');
             $table->string('qr_code')->nullable();
             $table->string('status');
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

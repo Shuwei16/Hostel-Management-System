@@ -36,9 +36,4 @@ class Student extends Model
     {
         return $this->hasMany(VisitorRegistration::class, 'visitor_reg_id');
     }
-
-    public  function comment()
-    {
-        return $this->hasMany(Comment::class, 'comment_id');
-    }
 }

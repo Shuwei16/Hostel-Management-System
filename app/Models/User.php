@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class, 'user_id');
     }
+
+    public  function comment()
+    {
+        return $this->hasMany(Comment::class, 'comment_id');
+    }
 }

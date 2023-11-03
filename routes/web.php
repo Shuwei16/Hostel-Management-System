@@ -7,6 +7,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\FloorPlanController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AnnouncementController;
 //use App\Http\Controllers\PythonController;
 
 /*
@@ -132,18 +133,14 @@ Route::get('admin-dashboard', function () {
 })->name('admin-dashboard')->middleware('admin');
 
 //announcements
-Route::get('admin-announcement', function () {
-    return view('admin/announcement/announcement');
-})->name('admin-announcement');
-Route::get('admin-announcementDetails', function () {
-    return view('admin/announcement/announcementDetails');
-})->name('admin-announcementDetails');
-Route::get('admin-addAnnouncement', function () {
-    return view('admin/announcement/addAnnouncement');
-})->name('admin-addAnnouncement');
-Route::get('admin-editAnnouncement', function () {
-    return view('admin/announcement/editAnnouncement');
-})->name('admin-editAnnouncement');
+Route::get('admin-announcement', [AnnouncementController::class, 'announcementList'])->name('admin-announcement');
+Route::get('admin-announcementDetails-{id}', [AnnouncementController::class, 'announcementDetails'])->name('admin-announcementDetails');
+Route::post('admin-comment', [AnnouncementController::class, 'postComment'])->name('admin-comment');
+Route::get('admin-addAnnouncement', [AnnouncementController::class, 'addAnnouncement'])->name('admin-addAnnouncement');
+Route::post('admin-addAnnouncement', [AnnouncementController::class, 'addAnnouncementPost'])->name('admin-addAnnouncement.post');
+Route::get('admin-editAnnouncement-{id}', [AnnouncementController::class, 'editAnnouncement'])->name('admin-editAnnouncement');
+Route::post('admin-editAnnouncement-{id}', [AnnouncementController::class, 'editAnnouncementPost'])->name('admin-editAnnouncement.post');
+Route::delete('admin-deleteAnnouncement-{id}', [AnnouncementController::class, 'deleteAnnouncement'])->name('admin-deleteAnnouncement');
 
 //registrations
 Route::get('admin-registrationRecord', [RegistrationController::class, 'showAllRegistrations'])->name('admin-registrationRecord');

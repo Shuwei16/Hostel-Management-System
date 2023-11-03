@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('slot_id');
             $table->integer('student_id');
             $table->string('maintenance_type');
-            $table->string('description');
+            $table->text('description');
             $table->string('status');
             $table->timestamps();
         });

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id('announcement_id');
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->string('image');
             $table->char('announced_block');
-            $table->string('annnounced_gender');
+            $table->string('announced_gender');
             $table->string('publicity');
             $table->timestamps();
         });

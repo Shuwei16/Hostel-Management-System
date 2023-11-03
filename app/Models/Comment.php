@@ -10,11 +10,11 @@ class Comment extends Model
     use HasFactory;
     protected $table = 'comments';
     protected $primaryKey = 'comment_id';
-    protected $fillable = ['student_id', 'content'];
+    protected $fillable = ['user_id', 'announcement_id', 'content'];
 
-    public  function student()
+    public  function user()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public  function announcement()
