@@ -176,4 +176,21 @@ class AnnouncementController extends Controller
                         
         return view('resident/announcement/announcement', ['announcements' => $announcements]);
     }
+
+    function home(){
+        // get public announcements
+        $announcements = Announcement::where('publicity', '=', 'Public')
+                                     ->orderBy('announcement_id', 'desc')
+                                     ->get();
+                        
+        return view('home', ['announcements' => $announcements]);
+    }
+
+    function newsDetails($id){
+        // get announcements details
+        $announcement = Announcement::where('announcement_id', $id)->first();
+
+        return view('newsDetails', compact('announcement'));
+        
+    }
 }

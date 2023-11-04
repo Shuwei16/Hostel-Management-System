@@ -22,9 +22,8 @@ use App\Http\Controllers\AnnouncementController;
 */
 
 /* Homepage */
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [AnnouncementController::class, 'home'])->name('home');
+Route::get('newsDetails-{id}', [AnnouncementController::class, 'newsDetails'])->name('newsDetails');
 
 /* Authentication */
 //login

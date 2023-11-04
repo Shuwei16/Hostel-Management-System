@@ -24,10 +24,10 @@
             height: 70%;
         }
         .announcement .title {
-            font-size: 1.5vmax;
+            font-size: 3vmin;
         }
         .announcement .date {
-            font-size: 1vmax;
+            font-size: 2vmin;
         }
     </style>
     <h1>Announcements</h1>
