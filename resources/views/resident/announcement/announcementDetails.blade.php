@@ -38,7 +38,6 @@
     <a class="btn btn-secondary" href="{{route('resident-announcement')}}" title="Back to Announcements"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
     <h1>Announcements Details</h1>
 
-
     <table class="table announcement-details">
         <tr>
             <th scope="row" class="table-secondary" style="width: 50%">

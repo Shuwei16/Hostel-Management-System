@@ -8,6 +8,7 @@ use App\Http\Controllers\FloorPlanController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\MaintenanceController;
 //use App\Http\Controllers\PythonController;
 
 /*
@@ -79,15 +80,12 @@ Route::post('resident-payment-method', [PaymentController::class, 'paymentMethod
 Route::post('resident-confirm-payment', [PaymentController::class, 'completePayment'])->name('resident-confirm-payment');
 
 //Room Maintenance Booking
-Route::get('resident-maintenance', function () {
-    return view('resident/room-maintenance/maintenance');
-});
-Route::get('resident-addMaintenance', function () {
-    return view('resident/room-maintenance/addMaintenance');
-});
-Route::get('resident-maintenanceDetails', function () {
-    return view('resident/room-maintenance/maintenanceDetails');
-});
+Route::get('resident-maintenance', [MaintenanceController::class, 'residentMaintenanceList'])->name('resident-maintenance');
+Route::get('resident-addMaintenance', [MaintenanceController::class, 'addMaintenance'])->name('resident-addMaintenance');
+Route::post('resident-addMaintenance.action', [MaintenanceController::class, 'addMaintenancePost'])->name('resident-addMaintenance.action');
+Route::get('resident-addMaintenance.action', [MaintenanceController::class, 'addMaintenanceGet'])->name('resident-addMaintenance.action');
+Route::get('resident-maintenanceDetails-{id}', [MaintenanceController::class, 'residentMaintenanceDetails'])->name('resident-maintenanceDetails');
+Route::put('resident-maintenanceDetails-{id}', [MaintenanceController::class, 'cancelMaintenance'])->name('resident-maintenanceDetails.cancel');
 
 //Vehicle Parking Applications
 Route::get('resident-vehicleParkingPass', function () {
@@ -159,15 +157,10 @@ Route::put('admin-roomCheckIn-{room_id}-{user_id}-{registration_id}', [FloorPlan
 Route::put('admin-roomCheckOut-{room_id}-{user_id}-{registration_id}', [FloorPlanController::class, 'roomCheckOut'])->name('admin-roomCheckOut');
 
 //room maintenances
-Route::get('admin-todaysMaintenance', function () {
-    return view('admin/room-maintenance/todaysMaintenance');
-});
-Route::get('admin-allMaintenances', function () {
-    return view('admin/room-maintenance/allMaintenances');
-});
-Route::get('admin-maintenanceDetails', function () {
-    return view('admin/room-maintenance/maintenanceDetails');
-});
+Route::get('admin-todaysMaintenance', [MaintenanceController::class, 'todaysMaintenances'])->name('admin-todaysMaintenance');
+Route::get('admin-allMaintenances', [MaintenanceController::class, 'allMaintenances'])->name('admin-allMaintenances');
+Route::get('admin-maintenanceDetails-{id}', [MaintenanceController::class, 'adminMaintenanceDetails'])->name('admin-maintenanceDetails');
+Route::put('admin-maintenanceDetails-{id}', [MaintenanceController::class, 'doneMaintenance'])->name('admin-maintenanceDetails.done');
 
 //vehicle parking applications
 Route::get('admin-vehicleParkingPassApps', function () {

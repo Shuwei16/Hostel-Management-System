@@ -23,46 +23,66 @@
     <table class="table table-details">
         <tr>
             <th scope="row" class="table-secondary" style="width: 25%">Applied Date</th>
-            <td></td>
+            <td>{{ $maintenance->applied_date }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Resident Name</th>
-            <td></td>
+            <td>{{ $maintenance->resident_name }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Resident ID</th>
-            <td></td>
+            <td>{{ $maintenance->resident_id }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Room</th>
-            <td></td>
+            <td>{{ $maintenance->room_code }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Maintenance Date</th>
-            <td></td>
+            <td>{{ $maintenance->date }}</td>
         </tr>
         <tr>
+            @php
+                $timeParts = explode(':', $maintenance->time);
+                $hours = (int)$timeParts[0];
+                $minutes = $timeParts[1];
+                $period = ($hours >= 12) ? 'PM' : 'AM';
+                if ($hours > 12) {
+                    $hours -= 12;
+                } elseif ($hours === 0) {
+                    $hours = 12;
+                }
+                $time12 = $hours . $period;
+            @endphp
             <th scope="row" class="table-secondary">Maintenance Time Slot</th>
-            <td></td>
+            <td>{{ $time12 }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Maintenance Type</th>
-            <td></td>
+            <td>{{ $maintenance->maintenance_type }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Description</th>
-            <td></td>
+            <td>{{ $maintenance->description }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Status</th>
             <td>
-                <div class="badge bg-success text-wrap" style="width: 6rem;">Applied</div>
+                <div class="badge text-wrap @if ($maintenance->status == 'Applied') bg-success @elseif ($maintenance->status == 'Canceled') bg-danger @else bg-primary @endif" 
+                style="width: 6rem;">{{ $maintenance->status }}</div>
             </td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Action</th>
             <td>
-                <button type="button" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i> Mark As Done</button>
+                @if ($maintenance->status == 'Applied')
+                <!--Mark as Done Button-->
+                <form action="{{route('admin-maintenanceDetails.done', ['id'=>$maintenance->maintenance_booking_id])}}" method="post" onsubmit="confirm('Are you sure to mark this maintenance as done?')">
+                    @csrf
+                    @method('put')
+                    <button type="submit" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i> Mark As Done</button>
+                </form>
+                @endif
             </td>
         </tr>
     </table>
