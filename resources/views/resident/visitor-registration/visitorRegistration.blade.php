@@ -19,32 +19,40 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <table class="table" style="font-size: 1vmax">
-        <thead>
-            <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Visitor Name</th>
-                <th scope="col">Visit Date</th>
-                <th scope="col">Visit Time</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Applied Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for ($i = 0; $i < 6; $i++)
+    <!-- Check whether have any visitor registration-->
+    @if ($registrations === null)
+        <p class="alert alert-danger">No visitor entry registration yet.</p>
+    @else
+        <table class="table" style="font-size: 1vmax">
+            <thead>
                 <tr>
-                    <th scope="row">{{ $i+1 }}</th>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td><a class="btn btn-info btn-sm" href="resident-visitorRegistrationDetails" title="View Visitor Registration Details" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
+                    <th scope="col">No.</th>
+                    <th scope="col">Visitor Name</th>
+                    <th scope="col">Visit Date</th>
+                    <th scope="col">Visit Time</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Applied Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                 </tr>
-            @endfor
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($registrations as $item)
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $item->visitor_name }}</td>
+                    <td>{{ $item->visit_date }}</td>
+                    <td>{{ $item->visit_time }}</td>
+                    <td>{{ $item->duration }}</td>
+                    <td>{{ $item->applied_date }}</td>
+                    <td>{{ $item->status }}</td>
+                    <td><a class="btn btn-info btn-sm" href="{{route('resident-visitorRegistrationDetails', ['id'=>$item->visitor_reg_id])}}" title="View Visitor Registration Details" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            {{$registrations->links()}}
+        </div>
+    @endif
 @endsection

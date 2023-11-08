@@ -20,7 +20,7 @@
     @endif
 
     <!-- Check whether have any maintenance task for today -->
-    @if ($maintenances === null)
+    @if ($maintenances->isEmpty())
         <p class="alert alert-danger">No room maintenance task for today.</p>
     @else
         <table class="table" style="font-size: 1vmax">
@@ -63,5 +63,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            {{$maintenances->links()}}
+        </div>
     @endif
 @endsection

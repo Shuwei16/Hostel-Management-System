@@ -23,47 +23,61 @@
     <table class="table table-details">
         <tr>
             <th scope="row" class="table-secondary" style="width: 25%">Applied Date</th>
-            <td></td>
+            <td>{{ $registration->applied_date }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Visitor Name</th>
-            <td></td>
+            <td>{{ $registration->visitor_name }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Purpose</th>
-            <td></td>
+            <td>{{ $registration->visit_purpose }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Visit Date</th>
-            <td></td>
+            <td>{{ $registration->visit_date }}</td>
         </tr>
         <tr>
+            @php
+                $timeParts = explode(':', $registration->visit_time);
+                $hours = (int)$timeParts[0];
+                $minutes = $timeParts[1];
+                $period = ($hours >= 12) ? 'PM' : 'AM';
+                if ($hours > 12) {
+                    $hours -= 12;
+                } elseif ($hours === 0) {
+                    $hours = 12;
+                }
+                $time12 = $hours . $period;
+            @endphp
             <th scope="row" class="table-secondary">Visit Time</th>
-            <td></td>
+            <td>{{ $time12 }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Duration</th>
-            <td></td>
+            <td>{{ $registration->duration }}@if($registration->duration < 60) minutes @else hour @endif</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Status</th>
             <td>
-                <div class="badge bg-success text-wrap" style="width: 6rem;">Approved</div>
+                <div class="badge @if ($registration->status == 'Approved') bg-success @elseif ($registration->status == 'Pending Approval') bg-warning @else bg-danger @endif text-wrap" style="width: 6rem;">{{ $registration->status }}</div>
             </td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">QR Code</th>
-            <td></td>
+            <td>@if ($registration->qr_code != null)<img class="" src="{{ asset('images/visitorQR/' . $registration->qr_code) }}" alt="QR Code">@endif</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Action</th>
             <td>
+                @if ($registration->status == 'Pending Approval')
                 <!--Cancel Button-->
-                <form action="" method="post">
+                <form action="{{route('resident-visitorRegistration.cancel', ['id'=>$registration->visitor_reg_id])}}" method="post" onsubmit="return confirm('Are you sure to cancel this visitor registration?')">
                     @csrf
                     @method('put')
                     <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
                 </form>
+                @endif
             </td>
         </tr>
     </table>

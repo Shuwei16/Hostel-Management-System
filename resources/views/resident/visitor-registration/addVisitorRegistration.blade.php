@@ -20,7 +20,7 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <form class="input_form" action="" method="post">
+    <form class="input_form" action="{{ route('resident-addVisitorRegistration.post') }}" method="post" onsubmit="return confirm('Are your sure to register this visior?')">
         @csrf
 
         <div class="form-group">
@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="visit_purpose">Purpose</label>
-            <textarea class="form-control" name="visit_purpose" id="visit_purpose" placeholder="" value="" rows="5" cols="50" requried></textarea><br>
+            <textarea class="form-control" name="visit_purpose" id="visit_purpose" placeholder="Reason why want to visit..." value="" rows="5" cols="50" requried></textarea><br>
         </div>
 
         <div class="form-group">
@@ -38,12 +38,21 @@
                 <tr>
                     <td>
                         <label for="visit_date">Visit Date</label>
-                        <input type="datetime-local" class="form-control" name="visit_date" id="visit_date" placeholder="- select date -" value="">
+                        <input type="datetime-local" class="form-control" name="visit_date" id="visit_date" placeholder="- select date -" value="" required>
                     </td>
                     <td>
-                        <label for="announced_gender">Visit Time</label>
-                        <select name="visit_time" name="visit_time" class="form-control" id="visit_time">
-                            <option value="">- select time -</option>
+                        <label for="visit_time">Visit Time</label>
+                        <select name="visit_time" name="visit_time" class="form-control" id="visit_time" required>
+                            <option value="" selected disabled>- select time -</option>
+                            <option value="9:00:00">9AM</option>
+                            <option value="10:00:00">10AM</option>
+                            <option value="11:00:00">11AM</option>
+                            <option value="12:00:00">12PM</option>
+                            <option value="13:00:00">1PM</option>
+                            <option value="14:00:00">2PM</option>
+                            <option value="15:00:00">3PM</option>
+                            <option value="16:00:00">4PM</option>
+                            <option value="17:00:00">5PM</option>
                         </select>
                     </td>
                 </tr>
@@ -52,8 +61,17 @@
         </div>
 
         <div class="form-group">
-            <label for="duration">Duration (Minutes)</label>
-            <input type="number" class="form-control" name="duration" id="duration" placeholder="" value="" required><br>
+            <label for="duration">Duration</label>
+            <select name="duration" name="duration" class="form-control" id="duration" required>
+                <option value="" selected disabled>- select duration -</option>
+                <option value="10">10 minutes</option>
+                <option value="20">20 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="40">40 minutes</option>
+                <option value="50">50 minutes</option>
+                <option value="60">1 hour</option>
+            </select>
+            <br>
         </div>
 
         <br>

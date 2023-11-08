@@ -23,50 +23,75 @@
     <table class="table table-details">
         <tr>
             <th scope="row" class="table-secondary" style="width: 25%">Applied Date</th>
-            <td></td>
+            <td>{{ $application->applied_date }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Resident Name</th>
-            <td></td>
+            <td>{{ $application->resident_name }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Resident ID</th>
-            <td></td>
+            <td>{{ $application->resident_id }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Make</th>
-            <td></td>
+            <td>{{ $application->make }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Model</th>
-            <td></td>
+            <td>{{ $application->model }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Year</th>
-            <td></td>
+            <td>{{ $application->year }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Color</th>
-            <td></td>
+            <td>{{ $application->color }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Plate No.</th>
-            <td></td>
+            <td>{{ $application->plate_no }}</td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Status</th>
             <td>
-                <div class="badge bg-warning text-wrap" style="width: 6rem;">Pending Approval</div>
+                <div class="badge text-wrap @if ($application->status == 'Approved') bg-success @elseif ($application->status == 'Pending Approval') bg-warning @else bg-danger @endif" 
+                style="width: 6rem;">{{ $application->status }}</div>
+                @if ($application->plate_no != null) <span style="font-size: 12px">Notes: {{ $application->note }}</span> @endif
             </td>
         </tr>
         <tr>
             <th scope="row" class="table-secondary">Action</th>
             <td>
+            @if($application->status == 'Pending Approval')
                 <!--Approve Button-->
-                <button type="button" class="btn btn-success btn-sm btn-submit" onclick="window.location.href = ''"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>
+                <form action="{{route('admin-vehicleParkingPass.approve', ['id'=>$application->parking_application_id])}}" method="post" onsubmit="return confirm('Are you sure to approve this vehicle parking pass?')">
+                    @csrf
+                    <button type="submit" id="btn-approve" class="btn btn-success btn-sm btn-action"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>
+                </form>
                 <!--Reject Button-->
-                <button type="button" class="btn btn-danger btn-sm btn-submit" onclick="window.location.href = ''"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+                <form action="{{route('admin-vehicleParkingPass.reject', ['id'=>$application->parking_application_id])}}" method="post" onsubmit="return confirm('Are you sure to reject this vehicle parking pass?')">
+                    @csrf
+                    <button type="button" id="btn-reject" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+                    <input type="hidden" class="form-control" id="note" name="note" placeholder="Write some notes here about why reject..." value="" required/>
+                </form>
+            @endif
             </td>
         </tr>
     </table>
+
+    <script>
+        const btnApprove = document.getElementById('btn-approve');
+        const btnReject = document.getElementById('btn-reject');
+        const notesInput = document.getElementById('note');
+
+        btnReject.addEventListener('click', function() {
+            notesInput.type = 'text';
+        });
+
+        btnApprove.addEventListener('click', function() {
+            notesInput.type = 'hidden';
+        });
+    </script>
 @endsection

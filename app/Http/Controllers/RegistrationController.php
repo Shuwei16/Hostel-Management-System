@@ -181,7 +181,7 @@ class RegistrationController extends Controller
                                                   'semesters.end_date as end_date',
                                                   'semesters.price as price')
                                          ->orderBy('registrations.registration_id', 'desc')
-                                         ->get();
+                                         ->paginate(10);
         }
 
         if(auth()->user()->role === 0) {
@@ -290,6 +290,7 @@ class RegistrationController extends Controller
     {
         $currentDate = Carbon::today();
         $registration = null;
+        $student = null;
 
         // get semester
         $semester = Semester::whereDate('extension_reg_open_date', '<=' , $currentDate)

@@ -18,7 +18,7 @@
             height: 500px;
             margin: 5px;
             border: none;
-            border-radius: 0px;
+            border-radius: 5px;
         }
         .announcement .poster {
             height: 70%;

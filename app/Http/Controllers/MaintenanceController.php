@@ -119,7 +119,7 @@ class MaintenanceController extends Controller
                                                    'maintenance_bookings.created_at as applied_date',
                                                    'maintenance_bookings.status as status')
                                           ->orderby('maintenance_booking_id', 'desc')
-                                          ->get();
+                                          ->paginate(10);
 
         return view('resident/room-maintenance/maintenance', ['maintenances' => $maintenances]);
     }
@@ -169,7 +169,7 @@ class MaintenanceController extends Controller
                                                    'maintenance_bookings.maintenance_type as maintenance_type',
                                                    'maintenance_bookings.status as status')
                                           ->orderby('maintenance_booking_id', 'desc')
-                                          ->get();
+                                          ->paginate(10);
 
         return view('admin/room-maintenance/todaysMaintenance', ['maintenances' => $maintenances]);
     }
@@ -193,7 +193,7 @@ class MaintenanceController extends Controller
                                                    'maintenance_bookings.maintenance_type as maintenance_type',
                                                    'maintenance_bookings.status as status')
                                           ->orderby('maintenance_booking_id', 'desc')
-                                          ->get();
+                                          ->paginate(10);
 
         return view('admin/room-maintenance/allMaintenances', ['maintenances' => $maintenances]);
     }

@@ -49,5 +49,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            {{$registrations->links()}}
+        </div>
     @endif
 @endsection

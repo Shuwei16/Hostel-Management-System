@@ -32,17 +32,20 @@
             </tr>
         </thead>
         <tbody>
-            @for ($i = 0; $i < 6; $i++)
+            @foreach($applications as $item)
                 <tr>
-                    <th scope="row">{{ $i+1 }}</th>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td><a class="btn btn-info btn-sm" href="admin-vehicleParkingPassDetails" title="View Parking Application Details" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $item->make }} {{ $item->model }} {{ $item->year }}</td>
+                    <td>{{ $item->plate_no }}</td>
+                    <td>{{ $item->color }}</td>
+                    <td>{{ $item->resident_name }}</td>
+                    <td>{{ $item->status }}</td>
+                    <td><a class="btn btn-info btn-sm" href="{{route('admin-vehicleParkingPassDetails', ['id'=>$item->parking_application_id])}}" title="View Parking Application Details" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
                 </tr>
-            @endfor
+            @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        {{$applications->links()}}
+    </div>
 @endsection

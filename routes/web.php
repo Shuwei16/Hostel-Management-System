@@ -9,6 +9,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\VehicleParkingController;
+use App\Http\Controllers\VisitorController;
 //use App\Http\Controllers\PythonController;
 
 /*
@@ -88,30 +90,20 @@ Route::get('resident-maintenanceDetails-{id}', [MaintenanceController::class, 'r
 Route::put('resident-maintenanceDetails-{id}', [MaintenanceController::class, 'cancelMaintenance'])->name('resident-maintenanceDetails.cancel');
 
 //Vehicle Parking Applications
-Route::get('resident-vehicleParkingPass', function () {
-    return view('resident/vehicle-parking-pass/vehicleParkingPass');
-});
-Route::get('resident-applyVehicleParkingPass', function () {
-    return view('resident/vehicle-parking-pass/applyVehicleParkingPass');
-});
-Route::get('resident-vehicleParkingPassDetails', function () {
-    return view('resident/vehicle-parking-pass/vehicleParkingPassDetails');
-});
-Route::get('resident-updateVehicleInfo', function () {
-    return view('resident/vehicle-parking-pass/updateVehicleInfo');
-});
+Route::get('resident-vehicleParkingPass', [VehicleParkingController::class, 'vehicleParkingPassList'])->name('resident-vehicleParkingPass');
+Route::get('resident-applyVehicleParkingPass', [VehicleParkingController::class, 'applyParkingPass'])->name('resident-applyVehicleParkingPass');
+Route::post('resident-applyVehicleParkingPass', [VehicleParkingController::class, 'applyParkingPassPost'])->name('resident-applyVehicleParkingPass.post');
+Route::get('resident-vehicleParkingPassDetails-{id}', [VehicleParkingController::class, 'parkingPassDetails'])->name('resident-vehicleParkingPassDetails');
+Route::get('resident-updateVehicleInfo-{id}', [VehicleParkingController::class, 'updateVehicleInfo'])->name('resident-updateVehicleInfo');
+Route::post('resident-updateVehicleInfo-{id}', [VehicleParkingController::class, 'updateVehicleInfoPost'])->name('resident-updateVehicleInfo.post');
+Route::put('resident-vehicleParkingPassDetails-{id}', [VehicleParkingController::class, 'cancelParkingPass'])->name('resident-vehicleParkingPass.cancel');
 
 //Visitor Entry Registration
-Route::get('resident-visitorRegistration', function () {
-    return view('resident/visitor-registration/visitorRegistration');
-});
-Route::get('resident-addVisitorRegistration', function () {
-    return view('resident/visitor-registration/addVisitorRegistration');
-});
-Route::get('resident-visitorRegistrationDetails', function () {
-    return view('resident/visitor-registration/visitorRegistrationDetails');
-});
-
+Route::get('resident-visitorRegistration', [VisitorController::class, 'visitorRegistrationList'])->name('resident-visitorRegistration');
+Route::get('resident-addVisitorRegistration', [VisitorController::class, 'addVisitorRegistration'])->name('resident-addVisitorRegistration');
+Route::post('resident-addVisitorRegistration', [VisitorController::class, 'addVisitorRegistrationPost'])->name('resident-addVisitorRegistration.post');
+Route::get('resident-visitorRegistrationDetails-{id}', [VisitorController::class, 'visitorRegistrationDetails'])->name('resident-visitorRegistrationDetails');
+Route::put('resident-visitorRegistrationDetails-{id}', [VisitorController::class, 'cancelVisitorRegistration'])->name('resident-visitorRegistration.cancel');
 
 //attendance
 Route::get('resident-attendance', function () {
@@ -163,12 +155,10 @@ Route::get('admin-maintenanceDetails-{id}', [MaintenanceController::class, 'admi
 Route::put('admin-maintenanceDetails-{id}', [MaintenanceController::class, 'doneMaintenance'])->name('admin-maintenanceDetails.done');
 
 //vehicle parking applications
-Route::get('admin-vehicleParkingPassApps', function () {
-    return view('admin/vehicle-parking-pass/vehicleParkingPassApps');
-});
-Route::get('admin-vehicleParkingPassDetails', function () {
-    return view('admin/vehicle-parking-pass/vehicleParkingPassDetails');
-});
+Route::get('admin-vehicleParkingPassApps', [VehicleParkingController::class, 'vehicleParkingPassList'])->name('admin-vehicleParkingPassApps');
+Route::get('admin-vehicleParkingPassDetails-{id}', [VehicleParkingController::class, 'parkingPassDetails'])->name('admin-vehicleParkingPassDetails');
+Route::post('admin-vehicleParkingPassDetails-{id}/approve', [VehicleParkingController::class, 'approveParkingPass'])->name('admin-vehicleParkingPass.approve');
+Route::post('admin-vehicleParkingPassDetails-{id}/reject', [VehicleParkingController::class, 'rejectParkingPass'])->name('admin-vehicleParkingPass.reject');
 
 //visitor entry registrations
 Route::get('admin-visitorRegistration', function () {

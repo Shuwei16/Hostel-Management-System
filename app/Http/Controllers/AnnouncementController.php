@@ -56,7 +56,7 @@ class AnnouncementController extends Controller
     function announcementList(){
         // get announcements
         $announcements = Announcement::orderBy('announcement_id', 'desc')
-                                     ->get();
+                                     ->paginate(10);
                         
         return view('admin/announcement/announcement', ['announcements' => $announcements]);
     }
