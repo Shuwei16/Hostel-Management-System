@@ -38,12 +38,24 @@
             </thead>
             <tbody>
                 @foreach($registrations as $item)
+                    @php
+                        $timeParts = explode(':', $item->visit_time);
+                        $hours = (int)$timeParts[0];
+                        $minutes = $timeParts[1];
+                        $period = ($hours >= 12) ? 'PM' : 'AM';
+                        if ($hours > 12) {
+                            $hours -= 12;
+                        } elseif ($hours === 0) {
+                            $hours = 12;
+                        }
+                        $time12 = $hours . $period;
+                    @endphp
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $item->visitor_name }}</td>
                     <td>{{ $item->visit_date }}</td>
-                    <td>{{ $item->visit_time }}</td>
-                    <td>{{ $item->duration }}</td>
+                    <td>{{ $time12 }}</td>
+                    <td>{{ $item->duration }}@if($item->duration < 60) minutes @else hour @endif</td>
                     <td>{{ $item->applied_date }}</td>
                     <td>{{ $item->status }}</td>
                     <td><a class="btn btn-info btn-sm" href="{{route('resident-visitorRegistrationDetails', ['id'=>$item->visitor_reg_id])}}" title="View Visitor Registration Details" style="font-size: 1vmax"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>

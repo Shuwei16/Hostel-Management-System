@@ -161,12 +161,12 @@ Route::post('admin-vehicleParkingPassDetails-{id}/approve', [VehicleParkingContr
 Route::post('admin-vehicleParkingPassDetails-{id}/reject', [VehicleParkingController::class, 'rejectParkingPass'])->name('admin-vehicleParkingPass.reject');
 
 //visitor entry registrations
-Route::get('admin-visitorRegistration', function () {
-    return view('admin/visitor-registration/visitorRegistration');
-});
-Route::get('admin-visitorRegistrationDetails', function () {
-    return view('admin/visitor-registration/visitorRegistrationDetails');
-});
+Route::get('admin-visitorRegistration', [VisitorController::class, 'visitorRegistrationList'])->name('admin-visitorRegistration');
+Route::get('admin-visitorRegistrationDetails-{id}', [VisitorController::class, 'visitorRegistrationDetails'])->name('admin-visitorRegistrationDetails');
+Route::get('admin-scanQR', function () {return view('admin/visitor-registration/scanQR');});
+Route::post('admin-visitorRegistrationDetails-{id}/approve', [VisitorController::class, 'approveVisitorRegistration'])->name('admin-visitorRegistration.approve');
+Route::post('admin-visitorRegistrationDetails-{id}/reject', [VisitorController::class, 'rejectVisitorRegistration'])->name('admin-visitorRegistration.reject');
+Route::get('admin-visitorRegistrationDetails-{id}/scan', [VisitorController::class, 'scanVisitorEntry'])->name('admin-visitorRegistration.scan');
 
 //resident attendances
 Route::get('admin-attendance', function () {

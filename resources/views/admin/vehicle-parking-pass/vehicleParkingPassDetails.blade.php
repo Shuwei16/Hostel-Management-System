@@ -58,7 +58,7 @@
             <td>
                 <div class="badge text-wrap @if ($application->status == 'Approved') bg-success @elseif ($application->status == 'Pending Approval') bg-warning @else bg-danger @endif" 
                 style="width: 6rem;">{{ $application->status }}</div>
-                @if ($application->plate_no != null) <span style="font-size: 12px">Notes: {{ $application->note }}</span> @endif
+                @if ($application->note != null) <span style="font-size: 12px">Reject notes: {{ $application->note }}</span> @endif
             </td>
         </tr>
         <tr>
