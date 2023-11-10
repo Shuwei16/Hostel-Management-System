@@ -172,6 +172,7 @@ Route::get('admin-visitorRegistrationDetails-{id}/scan', [VisitorController::cla
 Route::get('admin-attendance', function () {
     return view('admin/resident-attendance/attendance');
 });
+Route::get('admin-scanFace', function () {return view('admin/resident-attendance/scanFace');});
 
 
 //Route::get('run-python', [PythonController::class, 'execute'])->name('run-python');
