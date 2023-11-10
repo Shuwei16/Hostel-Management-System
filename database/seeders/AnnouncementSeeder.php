@@ -14,7 +14,7 @@ class AnnouncementSeeder extends Seeder
     public function run(): void
     {
         Announcement::create([
-            'registration_id' => 1,
+            'announcement_id' => 1,
             'title' => "Announcement 1",
             'content' => "Any description here...",
             'image' => "announcement_1698934957.jpg",
@@ -24,7 +24,7 @@ class AnnouncementSeeder extends Seeder
         ]);
 
         Announcement::create([
-            'registration_id' => 2,
+            'announcement_id' => 2,
             'title' => "Announcement 2",
             'content' => "Any description here...",
             'image' => "announcement_1699021781.jpg",
@@ -34,7 +34,7 @@ class AnnouncementSeeder extends Seeder
         ]);
 
         Announcement::create([
-            'registration_id' => 3,
+            'announcement_id' => 3,
             'title' => "Announcement 3",
             'content' => "Any description here...",
             'image' => "announcement_1699021840.jpg",
@@ -44,7 +44,7 @@ class AnnouncementSeeder extends Seeder
         ]);
 
         Announcement::create([
-            'registration_id' => 4,
+            'announcement_id' => 4,
             'title' => "Announcement 4",
             'content' => "Any description here...",
             'image' => "announcement_1699021865.jpg",

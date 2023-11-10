@@ -25,11 +25,17 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow to make it stand out */
     }
 
+    @media only screen and (max-width: 800px) {
+        #preview{
+            width: 100%;
+        }
+    }
+
     </style>
     <a class="btn btn-secondary" href="admin-visitorRegistration" title="Back to Visitor Registrations"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
 
     <div style="text-align: center;">
-        <h4>Show Visitor QR Code Here</h4>
+        <h1>Show Visitor QR Code Here</h1>
         <video id="preview"></video>
     </div>
 
