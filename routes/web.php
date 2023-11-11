@@ -11,7 +11,8 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\VehicleParkingController;
 use App\Http\Controllers\VisitorController;
-//use App\Http\Controllers\PythonController;
+use App\Http\Controllers\FaceRecognitionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -171,8 +172,6 @@ Route::get('admin-visitorRegistrationDetails-{id}/scan', [VisitorController::cla
 //resident attendances
 Route::get('admin-attendance', function () {
     return view('admin/resident-attendance/attendance');
-});
-Route::get('admin-scanFace', function () {return view('admin/resident-attendance/scanFace');});
-
-
-//Route::get('run-python', [PythonController::class, 'execute'])->name('run-python');
+})->name('admin-attendance');
+Route::get('admin-scanFace', [FaceRecognitionController::class, 'scanFace'])->name('admin-scanFace');
+Route::post('admin-scanFace', [FaceRecognitionController::class, 'scanFacePost'])->name('admin-scanFace.post');
