@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\Registration;
@@ -39,7 +40,13 @@ class ProfileController extends Controller
         $contact_no = substr_replace($profileInfo->contact_no, '-', 3, 0);
         $emergency_contact_no = substr_replace($profileInfo->emergency_contact, '-', 3, 0);
 
-        return view('resident/profile/profile', compact('profileInfo', 'address', 'contact_no', 'emergency_contact_no'));
+        $photoPath = public_path('labels/' . $profileInfo->resident_id . ' ' . $profileInfo->name);
+        $photoExist = false;
+        if (File::exists($photoPath)) {
+            $photoExist = true;
+        }
+
+        return view('resident/profile/profile', compact('profileInfo', 'address', 'contact_no', 'emergency_contact_no', 'photoExist'));
     }
 
     public function editProfile()
@@ -64,7 +71,6 @@ class ProfileController extends Controller
 
     public function editProfilePost(Request $request)
     {
-
         $user = auth()->user();
 
         $student = Student::where('user_id', $user->id)->first();

@@ -19,22 +19,27 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <table class="table" style="font-size: 1vmax">
-        <thead>
-            <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Attendance Type</th>
-                <th scope="col">Attendance Date & Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for ($i = 0; $i < 6; $i++)
+    <!-- Check whether have any attendance records -->
+    @if ($attendances === null)
+        <p class="alert alert-danger">No attendance records yet.</p>
+    @else
+        <table class="table" style="font-size: 1vmax">
+            <thead>
                 <tr>
-                    <th scope="row">{{ $i+1 }}</th>
-                    <td>...</td>
-                    <td>...</td>
+                    <th scope="col">No.</th>
+                    <th scope="col">Attendance Type</th>
+                    <th scope="col">Attendance Date & Time</th>
                 </tr>
-            @endfor
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($attendances as $item)
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $item->attendance_type }}</td>
+                    <td>{{ $item->datetime }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @endif
 @endsection

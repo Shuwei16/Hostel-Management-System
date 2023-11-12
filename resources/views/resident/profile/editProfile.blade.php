@@ -37,16 +37,16 @@
             <label for="address_line_1" class="sub-label">Address Line 1</label>
             <input type="text" class="form-control" name="address_line_1" id="address_line_1" placeholder="e.g. 1, Jalan Abc" value="{{ $address[0] }}" required>
             <label for="address_line_2" class="sub-label">Address Line 2</label>
-            <input type="text" class="form-control" name="address_line_2" id="address_line_2" placeholder="e.g. Taman Abc" value="{{ $address[1] }}" required>
+            <input type="text" class="form-control" name="address_line_2" id="address_line_2" placeholder="e.g. Taman Abc" value="@if(isset($address[1])){{ $address[1] }}@endif" required>
             <table class="col-2">
                 <tr>
                     <td>
                         <label for="postcode" class="sub-label">Postcode</label>
-                        <input type="text" class="form-control" name="postcode" id="postcode" placeholder="e.g. 81300" value="{{ $address[2] }}" required>
+                        <input type="text" class="form-control" name="postcode" id="postcode" placeholder="e.g. 81300" value="@if(isset($address[2])){{ $address[2] }}@endif" required>
                     </td>
                     <td>
                         <label for="city" class="sub-label">City</label>
-                        <input type="text" class="form-control" name="city" id="city" placeholder="e.g. Skudai" value="{{ $address[3] }}" required>
+                        <input type="text" class="form-control" name="city" id="city" placeholder="e.g. Skudai" value="@if(isset($address[3])){{ $address[3] }}@endif" required>
                     </td>
                 </tr>
             </table>
@@ -54,11 +54,11 @@
                 <tr>
                     <td>
                         <label for="state" class="sub-label">State</label>
-                        <input type="text" class="form-control" name="state" id="state" placeholder="e.g. Johor" value="{{ $address[4] }}" required>
+                        <input type="text" class="form-control" name="state" id="state" placeholder="e.g. Johor" value="@if(isset($address[4])){{ $address[4] }}@endif" required>
                     </td>
                     <td>
                         <label for="country" class="sub-label">Country</label>
-                        <input type="text" class="form-control" name="country" id="country" placeholder="e.g. Malaysia" value="{{ $address[5] }}" required>
+                        <input type="text" class="form-control" name="country" id="country" placeholder="e.g. Malaysia" value="@if(isset($address[5])){{ $address[5] }}@endif" required>
                     </td>
                 </tr>
             </table>

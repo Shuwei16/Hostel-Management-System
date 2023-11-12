@@ -19,7 +19,23 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
+    @if($profileInfo->address == null || $profileInfo->emergency_contact_name == null || $profileInfo->emergency_contact == null)
+        <div class="alert alert-danger" style="width: 100%">Please complete your information as soon as possible.</div>
+    @endif
+
     <table class="table table-details">
+        <tr>
+            <th scope="row" class="table-secondary" style="width: 25%">Face Idendity</th>
+            <td>
+                <span style="font-size: 12px; color: grey; ">You will be required to record your face identity for face recognition attendance taking used.</span><br/>
+                <!--Record Face Idendity Button-->
+                @if(!$photoExist)
+                <button type="button" class="btn btn-info btn-sm btn-action" onclick="window.location.href = 'resident-recordFace'"><i class="fa fa-smile-o" aria-hidden="true"></i> Record Face</button>
+                @else
+                <span style="color: green;"><i class="fa fa-check" aria-hidden="true"></i> Your face idendity has been recorded.</span>
+                @endif
+            </td>
+        </tr>
         <tr>
             <th scope="row" class="table-secondary" style="width: 25%">Name</th>
             <td>{{ $profileInfo->name }}</td>

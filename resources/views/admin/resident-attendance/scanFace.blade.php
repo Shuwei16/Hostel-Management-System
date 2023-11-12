@@ -15,10 +15,10 @@
         }
 
         @media only screen and (max-width: 900px) {
-        #video{
-            width: 100%;
+            #video{
+                width: 100%;
+            }
         }
-    }
     </style>
 
     <!-- Any error within the page -->
@@ -41,12 +41,12 @@
     <a class="btn btn-secondary" href="admin-attendance" title="Back to Resident Attendance"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
     <div id="video-container" class="video-container">
         <h1>Show Your Face Here</h1><br/>
+        <video id="video" autoplay muted width="800" height="600"></video>
         <form id="formSubmit" action="{{ route('admin-scanFace.post') }}" method="post">
             @csrf
             <input type="hidden" class="form-control" value="" id="recognizedLabel" name="recognizedLabel" required>
             <button id="btnSubmit" class="btn btn-info" type="submit" disabled><i class="fa fa-check" aria-hidden="true"></i>Record Attendance</button>
         </form>
-        <video id="video" autoplay muted width="800" height="600"></video>
     </div>
     
     <!-- Scripts for face recognition -->
@@ -99,7 +99,7 @@
             return Promise.all(
                 labels.map(async (label) => {
                 const descriptions = [];
-                for (let i = 1; i <= 2; i++) {
+                for (let i = 1; i <= 4; i++) {
                     const img = await faceapi.fetchImage(`/labels/${label}/${i}.png`);
                     const detections = await faceapi
                     .detectSingleFace(img)

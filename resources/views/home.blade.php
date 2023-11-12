@@ -77,7 +77,7 @@
             height: 500px;
             margin: 5px;
             border: none;
-            border-radius: 0px;
+            border-radius: 5px;
         }
         .whatsNew .whatsNew-content span:hover {
             cursor: pointer;

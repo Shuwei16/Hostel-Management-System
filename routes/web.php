@@ -64,6 +64,10 @@ Route::get('payment-receipt-{id}', [PaymentController::class, 'generateReceipt']
 Route::get('resident-profile', [ProfileController::class, 'showProfile'])->name('resident-profile');
 Route::get('resident-editProfile', [ProfileController::class, 'editProfile'])->name('resident-editProfile');
 Route::post('resident-editProfile', [ProfileController::class, 'editProfilePost'])->name('resident-editProfile.post');
+Route::get('resident-recordFace', function () {
+    return view('resident/profile/recordFace');
+})->name('resident-recordFace');
+Route::post('resident-recordFace', [FaceRecognitionController::class, 'storePhoto'])->name('resident-recordFace.post');
 
 //Announcements
 Route::get('resident-announcement', [AnnouncementController::class, 'residentAnnouncement'])->name('resident-announcement');
@@ -107,9 +111,7 @@ Route::get('resident-visitorRegistrationDetails-{id}', [VisitorController::class
 Route::put('resident-visitorRegistrationDetails-{id}', [VisitorController::class, 'cancelVisitorRegistration'])->name('resident-visitorRegistration.cancel');
 
 //attendance
-Route::get('resident-attendance', function () {
-    return view('resident/attendance/attendance');
-});
+Route::get('resident-attendance', [FaceRecognitionController::class, 'showResidentAttendances'])->name('resident-attendance');
 
 
 /* Admin */
@@ -170,8 +172,6 @@ Route::post('admin-visitorRegistrationDetails-{id}/reject', [VisitorController::
 Route::get('admin-visitorRegistrationDetails-{id}/scan', [VisitorController::class, 'scanVisitorEntry'])->name('admin-visitorRegistration.scan');
 
 //resident attendances
-Route::get('admin-attendance', function () {
-    return view('admin/resident-attendance/attendance');
-})->name('admin-attendance');
+Route::get('admin-attendance', [FaceRecognitionController::class, 'showAllAttendances'])->name('admin-attendance');
 Route::get('admin-scanFace', [FaceRecognitionController::class, 'scanFace'])->name('admin-scanFace');
 Route::post('admin-scanFace', [FaceRecognitionController::class, 'scanFacePost'])->name('admin-scanFace.post');

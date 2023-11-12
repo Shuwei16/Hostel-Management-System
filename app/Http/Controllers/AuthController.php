@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,14 @@ class AuthController extends Controller
                     return redirect()->intended(route('non-resident-new'));
                     break;
                 case 1:
-                    return redirect()->intended(route('resident-announcement'));
+                    $residentInfo = Student::where('user_id', '=', auth()->id())
+                                           ->first();
+                    if($residentInfo->address != null || $residentInfo->emergency_contact_name != null || $residentInfo->emergency_contact != null){
+                        return redirect()->intended(route('resident-announcement'));
+                    } else {
+                        return redirect()->intended(route('resident-editProfile'))->with("success", "Welcome, new resident! please complete your information here.");
+                    }
+                        
                     break;
                 case 2:
                     return redirect()->intended(route('admin-dashboard'));
