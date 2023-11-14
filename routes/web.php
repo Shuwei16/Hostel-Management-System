@@ -12,7 +12,7 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\VehicleParkingController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\FaceRecognitionController;
-
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,9 +117,8 @@ Route::get('resident-attendance', [FaceRecognitionController::class, 'showReside
 /* Admin */
 
 //dashboard
-Route::get('admin-dashboard', function () {
-    return view('admin/dashboard/dashboard');
-})->name('admin-dashboard')->middleware('admin');
+Route::get('admin-dashboard', [DashboardController::class, 'showDashboard'])->name('admin-dashboard')->middleware('admin');
+Route::get('admin-printReport', [DashboardController::class, 'printReport'])->name('admin-printReport');
 
 //announcements
 Route::get('admin-announcement', [AnnouncementController::class, 'announcementList'])->name('admin-announcement');

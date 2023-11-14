@@ -62,6 +62,17 @@
         ::placeholder {
             opacity: 0.5;
         }
+        @media (max-width: 700px) {
+            .section1 {
+                display: none;
+            }
+            .secton2 {
+                width: 100%;
+            }
+            .section2-content input{
+                width: 100%;
+            }
+        }
     </style>
     <!-- Page content -->
     <table class="signup-content">

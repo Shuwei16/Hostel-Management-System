@@ -20,7 +20,7 @@
         vertical-align: middle;
     }
     .header-content span {
-        font-size: 30px;
+        font-size: 4.5vmin;
         padding: 0;
         margin: 0;
         vertical-align: middle;
@@ -59,5 +59,5 @@
             </td>
         </tr>
     </table>
-    <p class="header-deco2"><p>
+    <div class="header-deco2"><div>
 </header>

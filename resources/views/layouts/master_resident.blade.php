@@ -45,6 +45,9 @@
         <!-- Header content -->
         <table class="header-content">
             <tr>
+                <td style="text-align: left;" class="mobile-menu">
+                    <button class="btn-menu" onclick="showDropDownMenu()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+                </td>
                 <td style="text-align: left;">
                     <span>Resident</span>
                 </td>
@@ -71,7 +74,36 @@
                 </td>
             </tr>
         </table>
-        <p class="header-deco2"><p>
+        <div class="header-deco2"><div>
+        <div class="menu-dropdown" id="mobile-menu">
+            <div><img src="{{ asset('images/tarumt-logo.png') }}" alt="Logo">  Hostel</div>
+            <ul>
+                <li onclick="window.location.href = 'resident-announcement';">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    Announcements
+                </li>
+                <li onclick="window.location.href = 'resident-registrationHistory';">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    Registration History
+                </li>
+                <li onclick="window.location.href = 'resident-maintenance';">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    Room Maintenances
+                </li>
+                <li onclick="window.location.href = 'resident-vehicleParkingPass';">
+                    <i class="fa fa-product-hunt" aria-hidden="true"></i>    
+                    Vehicle Parking Pass
+                </li>
+                <li onclick="window.location.href = 'resident-visitorRegistration';">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    Visitor Registerations
+                </li>
+                <li onclick="window.location.href = 'resident-attendance';">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    Attendances
+                </li>
+            </ul>
+        </div>
         <!-- Page content -->
         <div class="page-content">
             @yield('content')
@@ -108,6 +140,16 @@
     }
 
     flatpickr("input[type=datetime-local]");
+
+    //To show drop down menu for mobile view
+    function showDropDownMenu() {
+        var menu = document.getElementById("mobile-menu");
+        if(menu.style.display == "none") {
+            menu.style.display = "block";
+        } else {
+            menu.style.display = "none";
+        }
+    }
     </script>
 </body>
 @include('layouts/footer')

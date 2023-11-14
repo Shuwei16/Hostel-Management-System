@@ -53,6 +53,9 @@
         <!-- Header content -->
         <table class="header-content">
             <tr>
+                <td style="text-align: left;" class="mobile-menu">
+                    <button class="btn-menu" onclick="showDropDownMenu()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+                </td>
                 <td style="text-align: left;">
                     <span>Administration</span>
                 </td>
@@ -71,7 +74,44 @@
                 </td>
             </tr>
         </table>
-        <p class="header-deco2"><p>
+        <div class="header-deco2"><div>
+        <div class="menu-dropdown" id="mobile-menu">
+            <div><img src="{{ asset('images/tarumt-logo.png') }}" alt="Logo">  Hostel</div>
+            <ul>
+                <li onclick="window.location.href = 'admin-dashboard';">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    Dashboard
+                </li>
+                <li onclick="window.location.href = 'admin-announcement';">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    Annoucements
+                </li>
+                <li onclick="window.location.href = 'admin-registrationRecord';">
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    Hostel Registrations
+                </li>
+                <li onclick="window.location.href = 'admin-roomManagement';">
+                    <i class="fa fa-bed" aria-hidden="true"></i>
+                    Rooms
+                </li>
+                <li onclick="window.location.href = 'admin-todaysMaintenance';">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    Room Maintenances
+                </li>
+                <li onclick="window.location.href = 'admin-vehicleParkingPassApps';">
+                    <i class="fa fa-product-hunt" aria-hidden="true"></i>    
+                    Vehicle Parking Pass
+                </li>
+                <li onclick="window.location.href = 'admin-visitorRegistration';">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    Visitor Registerations
+                </li>
+                <li onclick="window.location.href = 'admin-attendance';">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    Residents' Attendances
+                </li>
+            </ul>
+        </div>
         <!-- Page content -->
         <div class="page-content">
             @yield('content')
@@ -109,6 +149,16 @@
     }
 
     flatpickr("input[type=datetime-local]");
+
+    //To show drop down menu for mobile view
+    function showDropDownMenu() {
+        var menu = document.getElementById("mobile-menu");
+        if(menu.style.display == "none") {
+            menu.style.display = "block";
+        } else {
+            menu.style.display = "none";
+        }
+    }
     </script>
 </body>
 @include('layouts/footer')

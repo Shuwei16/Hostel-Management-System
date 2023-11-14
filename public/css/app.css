@@ -57,13 +57,13 @@ html, body {
     padding: 5px 10px 20px 10px;
 }
 .header-content span {
-    font-size: 30px;
+    font-size: 4.5vmin;
     padding: 0;
     margin: 0;
     vertical-align: middle;
     font-weight: bold;
 }
-.header-content button {
+.header-content .dropbtn {
     font-family: verdana, sans-serif;
     background-color: #F9C03D;
     color: white;
@@ -73,7 +73,7 @@ html, body {
     padding: 10px 10px;
     transition: 0.5s;
 }
-.header-content button:hover {
+.header-content .dropbtn:hover {
     background-color: #facf6b;
     cursor: pointer;
 }
@@ -170,13 +170,89 @@ textarea {
     background-color: #facf6b;
     cursor: pointer;
 }
-
 .table-details {
     padding: 20px;
     box-shadow: 10px 10px 20px #CDD7DF;
 }
-
 .btn-action {
     float: left;
     margin: 5px;
+}
+h1 {
+    margin: 10px 0px;
+}
+/*Styles for mobile view menu*/
+.mobile-menu {
+    display: none;
+}
+.menu-dropdown {
+    display: none;
+}
+@media (max-width: 800px) {
+    .sidebar {
+        display: none; /* Hide the sidebar by default on small screens */
+    }
+    .content {
+        margin-left: 0; /* Remove the margin on the left for the content area */
+    }
+    .sidebar-bg {
+        display: none; /* Hide the sidebar background on small screens */
+    }
+    .top-button {
+        display: block; /* Display the "Go to top" button on small screens */
+    }
+    .page-content {
+        margin: 20px;
+    }
+    .mobile-menu {
+        display: inline-block;
+    }
+    .header-content{
+        width: 100%;
+    }
+    .btn-menu {
+        font-family: verdana, sans-serif;
+        background-color: white;
+        border: 2px solid #293952;
+        color: #293952;
+        border-radius: 7px;
+        width: 50px;
+        padding: 7px;
+        transition: 0.5s;
+        font-size: 20px;
+    }
+    .btn-menu:hover {
+        background-color: #293952;
+        color: white;
+        cursor: pointer;
+    }
+    .menu-dropdown {
+        display: none;
+        background-color: #FB9D58;
+        color: white;
+    }
+    .menu-dropdown div {
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+    }
+    .menu-dropdown img {
+        width: 20%;
+    }
+    .menu-dropdown ul {
+        font-size: 14px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+    .menu-dropdown ul li {
+        padding: 20px 10px 20px 10px;
+        cursor: pointer;
+    }
+    .menu-dropdown ul li:hover {
+        background-color: #F9C03D;
+    }
 }

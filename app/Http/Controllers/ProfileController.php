@@ -40,7 +40,7 @@ class ProfileController extends Controller
         $contact_no = substr_replace($profileInfo->contact_no, '-', 3, 0);
         $emergency_contact_no = substr_replace($profileInfo->emergency_contact, '-', 3, 0);
 
-        $photoPath = public_path('labels/' . $profileInfo->resident_id . ' ' . $profileInfo->name);
+        $photoPath = public_path('labels/' . $profileInfo->resident_id . '_' . $profileInfo->name);
         $photoExist = false;
         if (File::exists($photoPath)) {
             $photoExist = true;

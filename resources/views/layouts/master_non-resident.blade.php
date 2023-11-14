@@ -15,20 +15,23 @@
         <img src="{{ asset('images/tarumt-logo.png') }}" alt="Logo"> 
         <p>Hostel</p>
         <ul>
-        <li onclick="window.location.href = 'non-resident-new';">
-            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            New Registration
-        </li>
-        <li onclick="window.location.href = 'non-resident-history';">
-            <i class="fa fa-files-o" aria-hidden="true"></i>
-            Registration History
-        </li>
+            <li onclick="window.location.href = 'non-resident-new';">
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                New Registration
+            </li>
+            <li onclick="window.location.href = 'non-resident-history';">
+                <i class="fa fa-files-o" aria-hidden="true"></i>
+                Registration History
+            </li>
         </ul>
     </div>
     <div class="content">
         <!-- Header content -->
         <table class="header-content">
             <tr>
+                <td style="text-align: left;" class="mobile-menu">
+                    <button class="btn-menu" onclick="showDropDownMenu()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+                </td>
                 <td style="text-align: left;">
                     <span>Registration</span>
                 </td>
@@ -47,7 +50,20 @@
                 </td>
             </tr>
         </table>
-        <p class="header-deco2"><p>
+        <div class="header-deco2"><div>
+        <div class="menu-dropdown" id="mobile-menu">
+            <div><img src="{{ asset('images/tarumt-logo.png') }}" alt="Logo">  Hostel</div>
+            <ul>
+                <li onclick="window.location.href = 'non-resident-new';">
+                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                    New Registration
+                </li>
+                <li onclick="window.location.href = 'non-resident-history';">
+                    <i class="fa fa-files-o" aria-hidden="true"></i>
+                    Registration History
+                </li>
+            </ul>
+        </div>
         <!-- Page content -->
         <div class="page-content">
             @yield('content')
@@ -84,6 +100,16 @@
     }
 
     flatpickr("input[type=datetime-local]");
+
+    //To show drop down menu for mobile view
+    function showDropDownMenu() {
+        var menu = document.getElementById("mobile-menu");
+        if(menu.style.display == "none") {
+            menu.style.display = "block";
+        } else {
+            menu.style.display = "none";
+        }
+    }
     </script>
 </body>
 @include('layouts/footer')
