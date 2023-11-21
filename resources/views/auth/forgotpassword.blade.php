@@ -13,6 +13,7 @@
         }
         .section1 img {
             width: 100%;
+            height: 700px;
             opacity: 0.5;
         }
         .secton2 {
@@ -22,6 +23,9 @@
             font-family: verdana, sans-serif;
             padding: 40px;
             line-height: 2;
+        }
+        .alert {
+            width: 80%;
         }
         .section2-content input {
             font-family: verdana, sans-serif;
@@ -60,6 +64,14 @@
         ::placeholder {
             opacity: 0.5;
         }
+        @media (max-width: 700px) {
+            .section1 {
+                display: none;
+            }
+            .secton2, .section2-content input, .password, .alert {
+                width: 100%;
+            }
+        }
     </style>
     <!-- Page content -->
     <table class="forgotpassword-content">
@@ -70,18 +82,29 @@
             <td class="section2">
                 <div class="section2-content">
                     <h1>Forgot Password</h1>
-                    <form action="#" method="POST">
-                        <label for="idEmail">ID or Email</label><br>
-                        <input type="text" id="idEmail" name="idEmail" placeholder="xxx@xx.com" required><br><br>
+                    <div class="mt-5">
+                        @if($errors->any())
+                            <div class="col-12">
+                                @foreach($errors->all() as $error)
+                                    <div class="alert alert-danger">{{$error}}</div>
+                                @endforeach
+                            </div>
+                        @endif
 
-                        <label for="password">Password</label><br>
-                        <input type="password" id="password" name="password" placeholder="abc123" required><br><br>
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">{{session('error')}}</div>
+                        @endif
 
-                        <a href="#">Forgot Password</a><br><br>
+                        @if(session()->has('success'))
+                            <div class="alert alert-success">{{session('success')}}</div>
+                        @endif
+                    </div>
+                    <form action="{{route('forgotpassword.post')}}" method="POST">
+                    @csrf
+                        <label for="email">Enter your account email</label><br>
+                        <input type="text" id="email" name="email" placeholder="xxx@xx.com" required><br><br>
 
-                        <input type="submit" value="Sign In"><br><br>
-
-                        <span>Don't have an account? <a href="signup">Sign Up</a></span>
+                        <input type="submit" value="Email Password Reset Link"><br><br>
                     </form>
                 </div>
             </td>

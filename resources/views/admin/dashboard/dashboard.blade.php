@@ -56,7 +56,7 @@
             </div>
             <div class="col-sm">
                 <div class="content1">
-                    <p>New Rregistrations</p>
+                    <p>New Registrations</p>
                     <span>{{$newRegistrations}}</span>
                 </div>
             </div>

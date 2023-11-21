@@ -37,9 +37,10 @@ Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
 Route::get('signup', [AuthController::class, 'signup'])->name('signup');
 Route::post('signup', [AuthController::class, 'signupPost'])->name('signup.post');
 //link to forgot password page
-Route::get('forgotpassword', function () {
-    return view('auth/forgotpassword');
-});
+Route::get('forgotpassword', [AuthController::class, 'forgotpassword'])->name('forgotpassword');
+Route::post('forgotpassword', [AuthController::class, 'forgotPasswordPost'])->name('forgotpassword.post');
+Route::get('resetpassword-{id}', [AuthController::class, 'resetPassword'])->name('resetpassword');
+Route::post('resetpassword-{id}', [AuthController::class, 'resetPasswordPost'])->name('resetpassword.post');
 //logout
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -64,10 +65,12 @@ Route::get('payment-receipt-{id}', [PaymentController::class, 'generateReceipt']
 Route::get('resident-profile', [ProfileController::class, 'showProfile'])->name('resident-profile');
 Route::get('resident-editProfile', [ProfileController::class, 'editProfile'])->name('resident-editProfile');
 Route::post('resident-editProfile', [ProfileController::class, 'editProfilePost'])->name('resident-editProfile.post');
-Route::get('resident-recordFace', function () {
-    return view('resident/profile/recordFace');
-})->name('resident-recordFace');
+Route::get('resident-recordFace', function () { return view('resident/profile/recordFace'); })->name('resident-recordFace');
 Route::post('resident-recordFace', [FaceRecognitionController::class, 'storePhoto'])->name('resident-recordFace.post');
+Route::get('resident-changePassword', function () { return view('resident/profile/changePassword'); })->name('resident-changePassword');
+Route::post('resident-changePassword', [AuthController::class, 'changePasswordPost'])->name('resident-changePassword.post');
+Route::get('resident-forgotPassword', function () { return view('resident/profile/forgotPassword'); })->name('resident-forgotPassword');
+Route::post('resident-forgotPassword', [AuthController::class, 'residentForgotPasswordPost'])->name('resident-forgotPassword.post');
 
 //Announcements
 Route::get('resident-announcement', [AnnouncementController::class, 'residentAnnouncement'])->name('resident-announcement');

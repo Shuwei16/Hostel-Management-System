@@ -46,7 +46,7 @@ class FaceRecognitionController extends Controller
             'attendance_type' => $type
         ]);
 
-        return redirect(route('admin-attendance'))->with("success", "Attendance recorded: " . $request->recognizedLabel . " Type: " . $type);
+        return redirect(route('admin-attendance'))->with("success", "Attendance recorded: " . $request->recognizedLabel . " - " . $type);
     }
 
     public function storePhoto(Request $request){

@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class AnnouncementMail extends Mailable
+{
+    use Queueable, SerializesModels;
+    public $data=[];
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * Build the message
+     */
+    public function build()
+    {
+        return $this->from('wangsw-wm20@student.tarc.edu.my', 'TARUMT Hostel Management System')
+                    ->subject($this->data['subject'])
+                    ->view('emails.email-announcement')->with('data', $this->data);
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}

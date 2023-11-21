@@ -15,6 +15,7 @@
         }
         .section1 img {
             width: 100%;
+            height: 800px;
             opacity: 0.5;
         }
         .secton2 {
@@ -24,6 +25,9 @@
             font-family: verdana, sans-serif;
             padding: 40px;
             line-height: 2;
+        }
+        .alert {
+            width: 80%;
         }
         .section2-content input {
             font-family: verdana, sans-serif;
@@ -66,10 +70,7 @@
             .section1 {
                 display: none;
             }
-            .secton2 {
-                width: 100%;
-            }
-            .section2-content input{
+            .secton2, .section2-content input, .password, .alert {
                 width: 100%;
             }
         }
@@ -87,23 +88,23 @@
                         @if($errors->any())
                             <div class="col-12">
                                 @foreach($errors->all() as $error)
-                                    <div class="alert alert-danger" style="width: 80%">{{$error}}</div>
+                                    <div class="alert alert-danger">{{$error}}</div>
                                 @endforeach
                             </div>
                         @endif
 
                         @if(session()->has('error'))
-                            <div class="alert alert-danger" style="width: 80%">{{session('error')}}</div>
+                            <div class="alert alert-danger">{{session('error')}}</div>
                         @endif
 
                         @if(session()->has('success'))
-                            <div class="alert alert-success" style="width: 80%">{{session('success')}}</div>
+                            <div class="alert alert-success">{{session('success')}}</div>
                         @endif
                     </div>
                     <form action="{{route('signup.post')}}" method="POST">
                         @csrf
                         <label for="name">Name as per IC</label><br>
-                        <input type="text" id="name" name="name" placeholder="Lew Ah Meng" required><br><br>
+                        <input type="text" id="name" name="name" placeholder="e.g. Lew Ah Meng" required><br><br>
 
                         <!-- <label for="studentID">Student ID</label><br>
                         <input type="text" id="studentID" name="studentID" placeholder="22WMR00123" required><br><br> -->
@@ -113,10 +114,10 @@
                         <small id="emailHelp" class="form-text text-muted">You're advised to use a valid student email.</small><br><br>
 
                         <label for="password">Password</label><br>
-                        <input type="password" id="password" name="password" placeholder="abc123" required><br><br>
+                        <input type="password" id="password" name="password" placeholder="e.g. abc123" required><br><br>
 
                         <label for="password_confirmation">Confirm Password</label><br>
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="abc123" required><br><br>
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="e.g. abc123" required><br><br>
 
                         <input type="submit" value="Sign Up"><br><br>
 

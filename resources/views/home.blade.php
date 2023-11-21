@@ -85,7 +85,7 @@
         }
         .whatsNew .whatsNew-content img {
             width: 100%;
-            height: 70%;
+            max-height: 500px;
         }
         .whatsNew::-webkit-scrollbar{
             display: none;
@@ -123,12 +123,6 @@
         }
 
         @media only screen and (max-width: 800px) {
-            .whatsNew div {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media only screen and (max-width: 600px) {
             .section1 {
                 grid-template-columns: 100%;
             }

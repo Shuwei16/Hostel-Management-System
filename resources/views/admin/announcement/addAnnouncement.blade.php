@@ -114,15 +114,22 @@
             }
         }
 
-        // Call the function to set the initial state based on the selected option
-        toggleInputField();
-
         // Add an event listener to the "Publicity" dropdown to update the state when its value changes
         publicitySelect.addEventListener('change', toggleInputField);
         // Add an event listener to the "Announced Block" dropdown to update the state when its value changes
         announcedBlockSelect.addEventListener('change', toggleInputField);
         // Add an event listener to the "Announced Gender" dropdown to update the state when its value changes
         announcedGenderSelect.addEventListener('change', toggleInputField);
+
+        // Add an event listener to the form to enable disabled fields before submission
+        const form = document.querySelector('.input-form');
+        form.addEventListener('submit', function () {
+            announcedBlockSelect.disabled = false;
+            announcedGenderSelect.disabled = false;
+        });
+
+        // Call the function to set the initial state based on the selected option
+        toggleInputField();
         
     </script>
 @endsection

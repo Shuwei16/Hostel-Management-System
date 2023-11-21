@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Block;
 use App\Models\Announcement;
 use App\Models\Comment;
+use App\Models\User;
 use App\Models\Student;
 use App\Models\Registration;
 use App\Models\Room;
+use App\Mail\AnnouncementMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 class AnnouncementController extends Controller
 {
@@ -36,19 +39,50 @@ class AnnouncementController extends Controller
         $fileName = 'announcement_' . time() . '.' . $extension;
         $file->move($directoryPath, $fileName);
 
-        // new announcement
-        $data['title'] = $request->title;
-        $data['content'] = $request->content;
-        $data['image'] = $fileName;
-        $data['publicity'] = $request->publicity;
-        $data['announced_block'] = $request->announced_block;
-        $data['announced_gender'] = $request->announced_gender;
+        // send email notification if required
+        if($request->has('email_notification')) {
+            // send to all residents at certain block
+            if ($request->announced_block != 'All') {
+                $emails = User::join('students', 'students.user_id', '=', 'users.id')
+                              ->join('registrations', 'registrations.student_id', '=', 'students.student_id')
+                              ->join('rooms', 'rooms.room_id', '=', 'registrations.room_id')
+                              ->join('blocks', 'blocks.block_id', '=', 'rooms.block_id')
+                              ->where('blocks.block_name', '=', $request->announced_block)
+                              ->pluck('users.email as email')
+                              ->toArray();
 
-        if($request->email_notification !== null) {
-            //
+            // sent to all residents with certain gender
+            } else if ($request->announced_gender != 'All') {
+                $emails = User::join('students', 'students.user_id', '=', 'users.id')
+                              ->where('students.gender', '=', $request->announced_gender)
+                              ->pluck('users.email as email')
+                              ->toArray();
+
+            // send to all residents
+            } else {
+                $emails = User::where('role', '=', '1')->pluck('email')->toArray();
+            }
+
+            if($emails) {
+                $data = [
+                        "subject"=>"New Announcement from TARUMT Hostel",
+                        "title"=>$request->title,
+                        "content"=>$request->content,
+                        ];
+
+                Mail::to($emails)->send(new AnnouncementMail($data));
+            }
         }
         
-        $newAnnouncement = Announcement::create($data);
+        // new announcement
+        $newAnnouncement = Announcement::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'image' => $fileName,
+            'publicity' => $request->publicity,
+            'announced_block' => $request->announced_block,
+            'announced_gender' => $request->announced_gender,
+        ]);
 
         return redirect(route('admin-announcementDetails', ['id'=>$newAnnouncement->announcement_id]))->with("success", "New announcement has been added successfully!");
     }

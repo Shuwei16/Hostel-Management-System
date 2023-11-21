@@ -33,6 +33,7 @@
         }
         .block {
             font-size: 1.5vmax;
+            width: 90%;
         }
         .room-sidebar ul {
             font-size: 26px;

@@ -54,14 +54,15 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
     
-    <h1>Announcements Details 
+    <h1>Announcements Details</h1>
         <!-- delete button -->
         <form action="{{ route('admin-deleteAnnouncement', ['id'=>$announcement->announcement_id]) }}" method="post" onsubmit="confirm('Are you sure to delete this announcement?');">
             @csrf
             @method('delete')
             <button class="btn btn-danger" type="submit" title="Delete Annoucement" style="font-size: 1vmax; float: right;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-        </form> <a class="btn btn-primary" href="{{route('admin-editAnnouncement', ['id'=>$announcement->announcement_id])}}" title="Edit Annoucement" style="font-size: 1vmax; float: right; margin-right: 10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></h1>
+        </form> <a class="btn btn-primary" href="{{route('admin-editAnnouncement', ['id'=>$announcement->announcement_id])}}" title="Edit Annoucement" style="font-size: 1vmax; float: right; margin-right: 10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
 
+    </br></br>
     <table class="table announcement-details">
         <tr>
             <th scope="row" class="table-secondary" style="width: 50%">
