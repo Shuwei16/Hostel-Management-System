@@ -71,7 +71,16 @@
         @endif
         <tr>
             <th scope="row" class="table-secondary">Information</th>
-            <td></td>
+            <td>
+            @if($registration->status == "Pending Payment")
+                Please make your payment as soon as possible.<br>
+                * Take note that there is no extension of the payment due date. Your application status will change to unsuccessful if you are failed to make the payment on time.
+            @elseif($registration->status == "Payment Completed")
+                You can now check in your room within the given date.
+            @else
+                -
+            @endif
+            </td>
         </tr>
         @if($registration->check_in_date !== null)
         <tr>

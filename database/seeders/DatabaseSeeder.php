@@ -25,5 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RegistrationSeeder::class);
         $this->call(PaymentSeeder::class);
         $this->call(AnnouncementSeeder::class);
+        $this->call(MaintenanceSeeder::class);
+        $this->call(ParkingPassSeeder::class);
+        $this->call(VisitorSeeder::class);
     }
 }

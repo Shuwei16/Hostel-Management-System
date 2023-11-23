@@ -85,12 +85,10 @@
         var emptyRoom = 2000;
         for (var i = 0; i < roomOccupancy.length; i++) {
             pieXValues.push(roomOccupancy[i].gender);
+            pieYValues.push(roomOccupancy[i].total_occupied_slots);
+            emptyRoom = emptyRoom - roomOccupancy[i].total_occupied_slots;
         }
         pieXValues.push("Available");
-        for (var i = 0; i < roomOccupancy.length; i++) {
-            pieYValues.push(roomOccupancy[i].total_occupied_slots);
-            emptyRoom--;
-        }
         pieYValues.push(emptyRoom);
         //var pieXValues = ["Italy", "France", "Spain", "USA", "Argentina"];
         //pieYValues = [55, 49, 44];

@@ -20,8 +20,8 @@
     @endif
 
     <!-- Check whether have any visitor registration-->
-    @if ($registrations === null)
-        <p class="alert alert-danger">No visitor entry registration yet.</p>
+    @if ($registrations->isEmpty())
+        <p class="alert alert-danger">No visitor entry registration yet. Click <a href="resident-addVisitorRegistration">here</a> to register for a visitor.</p>
     @else
         <table class="table" style="font-size: 1vmax">
             <thead>

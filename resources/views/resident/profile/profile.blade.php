@@ -25,7 +25,7 @@
 
     <table class="table table-details">
         <tr>
-            <th scope="row" class="table-secondary" style="width: 25%">Face Idendity</th>
+            <th scope="row" class="table-secondary" style="width: 25%">Face Identity</th>
             <td>
                 <span style="font-size: 12px; color: grey; ">You will be required to record your face identity for face recognition attendance taking used.</span><br/>
                 <!--Record Face Idendity Button-->

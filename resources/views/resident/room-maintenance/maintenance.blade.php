@@ -20,7 +20,7 @@
     @endif
 
     <!-- Check whether have maintenance record -->
-    @if ($maintenances === null)
+    @if ($maintenances->isEmpty())
         <p class="alert alert-danger">No room maintenance booking yet. Click <a href="resident-addMaintenance">here</a> to apply new room maintenance booking.</p>
     @else
         <table class="table" style="font-size: 1vmax">

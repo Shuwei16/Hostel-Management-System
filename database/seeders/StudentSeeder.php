@@ -13,18 +13,47 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        Student::create([
-            'user_id' => 2,
-            'ic' => "010203101234",
-            'student_card_no' => "23WMR12345",
-            'resident_id' => "NFR 12342023",
-            'contact_no' => "0123456789",
-            'gender' => "Female",
-            'race' => "Chinese",
-            'citizenship' => "Citizen",
-            'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
-            'emergency_contact_name' => "Lee Ah Meng",
-            'emergency_contact' => "0166666666"
-        ]);
+        //dummy data for female residents
+        for($i=1; $i <= 150; $i++) {
+            $races = ['Chinese', 'Malay', 'Indian'];
+            $randomRaceIndex = mt_rand(0, count($races) - 1);
+            $race = $races[$randomRaceIndex];
+
+            Student::create([
+                'user_id' => $i+1,
+                'ic' => "010203101" . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'student_card_no' => '22WMR' . str_pad($i, 5, '0', STR_PAD_LEFT),
+                'resident_id' => 'NFR ' . str_pad($i, 8, '0', STR_PAD_LEFT),
+                'contact_no' => "0123456789",
+                'gender' => "Female",
+                'race' => $race,
+                'citizenship' => "Citizen",
+                'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
+                'emergency_contact_name' => "Lee Ah Meng",
+                'emergency_contact' => "0166666666"
+            ]);
+        }
+
+        //dummy data for male residents
+        for($i=151; $i <= 200; $i++) {
+            $races = ['Chinese', 'Malay', 'Indian'];
+            $randomRaceIndex = mt_rand(0, count($races) - 1);
+            $race = $races[$randomRaceIndex];
+
+            Student::create([
+                'user_id' => $i+1,
+                'ic' => "010203101" . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'student_card_no' => '22WMR' . str_pad($i, 5, '0', STR_PAD_LEFT),
+                'resident_id' => 'NFR ' . str_pad($i, 8, '0', STR_PAD_LEFT),
+                'contact_no' => "0123456789",
+                'gender' => "Male",
+                'race' => $race,
+                'citizenship' => "Citizen",
+                'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
+                'emergency_contact_name' => "Lee Ah Meng",
+                'emergency_contact' => "0166666666"
+            ]);
+        }
+        
     }
 }

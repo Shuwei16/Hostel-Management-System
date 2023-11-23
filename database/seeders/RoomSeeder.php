@@ -56,10 +56,5 @@ class RoomSeeder extends Seeder
             }
             $all_blocks++;
         }
-
-        $room = Room::find(1);
-        $room->update(['occupied_slots' => 1,
-                       'race_restriction' => 'Chinese'
-                     ]);
     }
 }

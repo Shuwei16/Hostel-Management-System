@@ -48,6 +48,25 @@ class VehicleParkingController extends Controller
         
     }
 
+    function searchVehicleParkingPassList(Request $request) {
+        $applications = ParkingApplication::join('students', 'students.student_id', '=', 'parking_applications.student_id')
+                                          ->join('users', 'users.id', '=', 'students.user_id')
+                                          ->where('users.name', 'like', '%' . $request->search . '%')
+                                          ->orWhere('parking_applications.status', 'like', '%' . $request->search . '%')
+                                          ->select('parking_applications.parking_application_id as parking_application_id',
+                                                   'parking_applications.make as make',
+                                                   'parking_applications.model as model',
+                                                   'parking_applications.year as year',
+                                                   'parking_applications.plate_no as plate_no',
+                                                   'parking_applications.color as color',
+                                                   'users.name as resident_name',
+                                                   'parking_applications.status as status',)
+                                          ->orderBy('parking_applications.parking_application_id', 'desc')
+                                          ->paginate(10);
+
+        return view('admin/vehicle-parking-pass/vehicleParkingPassApps', ['applications' => $applications]);
+    }
+
     function applyParkingPass() {
 
         $appliedPass = ParkingApplication::join('students', 'students.student_id', '=', 'parking_applications.student_id')

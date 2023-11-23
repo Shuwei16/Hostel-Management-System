@@ -73,6 +73,25 @@ class VisitorController extends Controller
         }
     }
 
+    function searchVisitorRegistration(Request $request) {
+        $registrations = VisitorRegistration::join('students', 'students.student_id', '=', 'visitor_registrations.student_id')
+                                            ->join('users', 'users.id', '=', 'students.user_id')
+                                            ->where('visitor_registrations.visitor_name', 'like', '%' . $request->search . '%')
+                                            ->orWhere('users.name', 'like', '%' . $request->search . '%')
+                                            ->orWhere('visitor_registrations.status', 'like', '%' . $request->search . '%')
+                                            ->select('visitor_registrations.visitor_reg_id as visitor_reg_id',
+                                                     'visitor_registrations.visitor_name as visitor_name',
+                                                     'visitor_registrations.visit_date as visit_date',
+                                                     'visitor_registrations.visit_time as visit_time',
+                                                     'visitor_registrations.duration as duration',
+                                                     'users.name as resident_name',
+                                                     'visitor_registrations.status as status',)
+                                            ->orderBy('visitor_registrations.visitor_reg_id', 'desc')
+                                            ->paginate(10);
+
+        return view('admin/visitor-registration/visitorRegistration', ['registrations' => $registrations]);
+    }
+
     function visitorRegistrationDetails($id) {
         //display for resident
         if(auth()->user()->role == 1) {

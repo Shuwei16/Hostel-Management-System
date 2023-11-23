@@ -20,7 +20,7 @@
     @endif
 
     <!-- Check whether have any attendance records -->
-    @if ($attendances === null)
+    @if ($attendances->isEmpty())
         <p class="alert alert-danger">No attendance records yet.</p>
     @else
         <table class="table" style="font-size: 1vmax">

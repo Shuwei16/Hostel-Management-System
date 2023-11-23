@@ -171,7 +171,7 @@ class MaintenanceController extends Controller
                                           ->orderby('maintenance_booking_id', 'desc')
                                           ->paginate(10);
 
-        return view('admin/room-maintenance/todaysMaintenance', ['maintenances' => $maintenances]);
+        return view('admin/room-maintenance/todaysMaintenance', compact('maintenances'));
     }
 
     // Display all maintenance task for admin
@@ -195,7 +195,35 @@ class MaintenanceController extends Controller
                                           ->orderby('maintenance_booking_id', 'desc')
                                           ->paginate(10);
 
-        return view('admin/room-maintenance/allMaintenances', ['maintenances' => $maintenances]);
+        return view('admin/room-maintenance/allMaintenances', compact('maintenances'));
+    }
+
+    public function searchAllMaintenances(Request $request) {
+
+        $maintenances = MaintenanceBooking::join('maintenance_slots', 'maintenance_slots.slot_id', '=', 'maintenance_bookings.slot_id')
+                                          ->join('students', 'students.student_id', '=', 'maintenance_bookings.student_id')
+                                          ->join('users', 'users.id', '=', 'students.user_id')
+                                          ->join('registrations', function ($join) {
+                                             $join->on('students.student_id', '=', 'registrations.student_id')
+                                                 ->whereRaw('registrations.registration_id = (SELECT MAX(registration_id) FROM registrations WHERE student_id = students.student_id)');
+                                          })
+                                          ->join('rooms', 'rooms.room_id', '=', 'registrations.room_id')
+                                          ->where('rooms.room_code', 'like', '%' . $request->search . '%')
+                                          ->orWhere('maintenance_slots.date', 'like', '%' . $request->search . '%')
+                                          ->orWhere('users.name', 'like', '%' . $request->search . '%')
+                                          ->orWhere('maintenance_bookings.maintenance_type', 'like', '%' . $request->search . '%')
+                                          ->orWhere('maintenance_bookings.status', 'like', '%' . $request->search . '%')
+                                          ->select('maintenance_bookings.maintenance_booking_id as maintenance_booking_id',
+                                                   'maintenance_slots.date as date',
+                                                   'maintenance_slots.time as time',
+                                                   'rooms.room_code as room_code',
+                                                   'users.name as resident_name',
+                                                   'maintenance_bookings.maintenance_type as maintenance_type',
+                                                   'maintenance_bookings.status as status')
+                                          ->orderby('maintenance_booking_id', 'desc')
+                                          ->paginate(10);
+
+        return view('admin/room-maintenance/allMaintenances', compact('maintenances'));
     }
 
     // Display maintenance details for admin

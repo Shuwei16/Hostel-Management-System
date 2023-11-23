@@ -133,6 +133,24 @@
                 grid-template-columns: repeat(1, 1fr);
             }
         }
+        .top-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            font-size: 16px;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+        .top-button:hover {
+            background-color: #333;
+        }
     </style>
     
     <!-- Page content -->
@@ -183,8 +201,18 @@
             <span id="nextBtn" class="btn-arrow"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
         </div>
     </div>
+    <button id="topButton" class="top-button" onclick="scrollToTop()" title="Go to top">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
         let scrollContainer = document.querySelector(".whatsNew");
         let backBtn = document.getElementById("backBtn");
         let nextBtn = document.getElementById("nextBtn");
@@ -197,12 +225,12 @@
 
         nextBtn.addEventListener("click", ()=>{
             scrollContainer.style.scrollBehavior = "smooth";
-            scrollContainer.scrollLeft += 900;
+            scrollContainer.scrollLeft += 1500;
         });
 
         backBtn.addEventListener("click", ()=>{
             scrollContainer.style.scrollBehavior = "smooth";
-            scrollContainer.scrollLeft -= 900;
+            scrollContainer.scrollLeft -= 1500;
         });
     </script>
 @endsection

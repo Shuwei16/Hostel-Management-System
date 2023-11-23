@@ -13,44 +13,29 @@ class AnnouncementSeeder extends Seeder
      */
     public function run(): void
     {
-        Announcement::create([
-            'announcement_id' => 1,
-            'title' => "Announcement 1",
-            'content' => "Any description here...",
-            'image' => "announcement_1698934957.jpg",
-            'announced_block' => "All",
-            'announced_gender' => "All",
-            'publicity' => "Public"
-        ]);
+        //dummy data for public announcement
+        for($i=1; $i <= 5; $i++) {
+            Announcement::create([
+                'title' => "Sample Public Announcement ".$i,
+                'content' => "Any description here...",
+                'image' => "announcement_1700661078.jpg",
+                'announced_block' => "All",
+                'announced_gender' => "All",
+                'publicity' => "Public"
+            ]);
+        }
 
-        Announcement::create([
-            'announcement_id' => 2,
-            'title' => "Announcement 2",
-            'content' => "Any description here...",
-            'image' => "announcement_1699021781.jpg",
-            'announced_block' => "A",
-            'announced_gender' => "Female",
-            'publicity' => "Private"
-        ]);
+        //dummy data for private announcement
+        for($i=1; $i <= 20; $i++) {
 
-        Announcement::create([
-            'announcement_id' => 3,
-            'title' => "Announcement 3",
-            'content' => "Any description here...",
-            'image' => "announcement_1699021840.jpg",
-            'announced_block' => "All",
-            'announced_gender' => "All",
-            'publicity' => "Public"
-        ]);
-
-        Announcement::create([
-            'announcement_id' => 4,
-            'title' => "Announcement 4",
-            'content' => "Any description here...",
-            'image' => "announcement_1699021865.jpg",
-            'announced_block' => "B",
-            'announced_gender' => "All",
-            'publicity' => "Private"
-        ]);
+            Announcement::create([
+                'title' => "Sample Private Announcement ".$i,
+                'content' => "Any description here...",
+                'image' => "announcement_1700661078.jpg",
+                'announced_block' => "All",
+                'announced_gender' => "All",
+                'publicity' => "Private"
+            ]);
+        }
     }
 }

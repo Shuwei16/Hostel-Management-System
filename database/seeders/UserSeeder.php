@@ -13,25 +13,32 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        //admin account
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@123.com',
+            'email' => 'admin@testing.com',
             'password' => bcrypt('admin123'),
             'role' => 2,
         ]);
 
-        User::create([
-            'name' => 'User1',
-            'email' => 'user1@123.com',
-            'password' => bcrypt('user123'),
-            'role' => 1,
-        ]);
+        //dummy data for 200 resident accounts
+        for($i=1; $i <= 200; $i++) {
+            User::create([
+                'name' => 'User Name '.$i,
+                'email' => 'user'.$i.'@testing.com',
+                'password' => bcrypt('user123'),
+                'role' => 1,
+            ]);
+        }
 
-        User::create([
-            'name' => 'User2',
-            'email' => 'user2@123.com',
-            'password' => bcrypt('user123'),
-            'role' => 0,
-        ]);
+        //dummy data for 10 non-resident accounts
+        for($i=201; $i <= 210; $i++) {
+            User::create([
+                'name' => 'User Name '.$i,
+                'email' => 'user'.$i.'@testing.com',
+                'password' => bcrypt('user123'),
+                'role' => 0,
+            ]);
+        }
     }
 }

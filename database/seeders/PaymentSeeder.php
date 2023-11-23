@@ -13,11 +13,19 @@ class PaymentSeeder extends Seeder
      */
     public function run(): void
     {
-        Payment::create([
-            'registration_id' => 1,
-            'receipt_no' => "R-000001",
-            'amount' => 100.00,
-            'payment_method' => "Online Banking"
-        ]);
+
+        //dummy data for payment registration records
+        for($i=1; $i <= 800; $i++) {
+            $paymentMethods = ['Online Banking', 'Card', 'E-Wallet'];
+            $randomMethodIndex = mt_rand(0, count($paymentMethods) - 1);
+            $paymentMethod = $paymentMethods[$randomMethodIndex];
+
+            Payment::create([
+                'registration_id' => $i,
+                'receipt_no' => "R-" . str_pad($i, 6, '0', STR_PAD_LEFT),
+                'amount' => 1000.00,
+                'payment_method' => $paymentMethod
+            ]);
+        }
     }
 }

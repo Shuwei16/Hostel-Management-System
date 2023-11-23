@@ -20,8 +20,8 @@
     @endif
 
     <!-- Check whether have any parking pass application -->
-    @if ($applications === null)
-        <p class="alert alert-danger">No vehicle parking pass application yet.</p>
+    @if ($applications->isEmpty())
+        <p class="alert alert-danger">No vehicle parking pass application yet. Click <a href="resident-applyVehicleParkingPass">here</a> to apply new vehicle parking pass.</p>
     @else
         <table class="table" style="font-size: 1vmax">
             <thead>

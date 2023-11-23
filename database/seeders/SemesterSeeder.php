@@ -13,6 +13,7 @@ class SemesterSeeder extends Seeder
      */
     public function run(): void
     {
+        //dummy data for semester data 
         Semester::create([
             'semester_name' => 'NOVEMBER 2022',
             'start_date' => '2022-11-11',

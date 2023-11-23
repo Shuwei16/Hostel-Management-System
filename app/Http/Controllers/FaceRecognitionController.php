@@ -99,6 +99,23 @@ class FaceRecognitionController extends Controller
         return view('admin/resident-attendance/attendance', compact('attendances'));
     }
 
+    public function searchAttendances(Request $request) {
+        $attendances = Attendance::join('students', 'students.student_id', '=', 'attendances.student_id')
+                                 ->join('users', 'users.id', '=', 'students.user_id')
+                                 ->where('users.name', 'like', '%' . $request->search . '%')
+                                 ->orWhere('students.resident_id', 'like', '%' . $request->search . '%')
+                                 ->select(
+                                    'users.name as resident_name',
+                                    'students.resident_id as resident_id',
+                                    'attendances.attendance_type as attendance_type',
+                                    'attendances.created_at as datetime'
+                                    )
+                                 ->orderby('attendance_id', 'desc')
+                                 ->paginate(10);
+
+        return view('admin/resident-attendance/attendance', compact('attendances'));
+    }
+
     public function showResidentAttendances() {
         $attendances = Attendance::join('students', 'students.student_id', '=', 'attendances.student_id')
                                  ->join('users', 'users.id', '=', 'students.user_id')

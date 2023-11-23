@@ -70,7 +70,17 @@ class AnnouncementController extends Controller
                         "content"=>$request->content,
                         ];
 
-                Mail::to($emails)->send(new AnnouncementMail($data));
+                // Assuming $emails is an array of email addresses
+                $batchSize = 50; // Adjust this value based on the maximum recipients allowed by your email provider
+
+                $chunks = array_chunk($emails, $batchSize);
+
+                foreach ($chunks as $chunk) {
+                    Mail::to($chunk)->send(new AnnouncementMail($data));
+                    
+                    // Add a delay between batches to avoid rate limiting
+                    usleep(500000); // Sleep for 0.5 seconds (adjust as needed)
+                }
             }
         }
         
@@ -90,6 +100,16 @@ class AnnouncementController extends Controller
     function announcementList(){
         // get announcements
         $announcements = Announcement::orderBy('announcement_id', 'desc')
+                                     ->paginate(10);
+                        
+        return view('admin/announcement/announcement', ['announcements' => $announcements]);
+    }
+
+    function searchAnnouncement(Request $request) {
+        // get announcements
+        $announcements = Announcement::where('title', 'like', '%' . $request->search . '%')
+                                     ->orWhere('publicity', 'like', '%' . $request->search . '%')
+                                     ->orderBy('announcement_id', 'desc')
                                      ->paginate(10);
                         
         return view('admin/announcement/announcement', ['announcements' => $announcements]);
@@ -165,7 +185,47 @@ class AnnouncementController extends Controller
         ]);
 
         if($request->email_notification !== null) {
-            //
+             // send to all residents at certain block
+             if ($request->announced_block != 'All') {
+                $emails = User::join('students', 'students.user_id', '=', 'users.id')
+                              ->join('registrations', 'registrations.student_id', '=', 'students.student_id')
+                              ->join('rooms', 'rooms.room_id', '=', 'registrations.room_id')
+                              ->join('blocks', 'blocks.block_id', '=', 'rooms.block_id')
+                              ->where('blocks.block_name', '=', $request->announced_block)
+                              ->pluck('users.email as email')
+                              ->toArray();
+
+            // sent to all residents with certain gender
+            } else if ($request->announced_gender != 'All') {
+                $emails = User::join('students', 'students.user_id', '=', 'users.id')
+                              ->where('students.gender', '=', $request->announced_gender)
+                              ->pluck('users.email as email')
+                              ->toArray();
+
+            // send to all residents
+            } else {
+                $emails = User::where('role', '=', '1')->pluck('email')->toArray();
+            }
+
+            if($emails) {
+                $data = [
+                        "subject"=>"New Announcement from TARUMT Hostel",
+                        "title"=>$request->title,
+                        "content"=>$request->content,
+                        ];
+
+                // Assuming $emails is an array of email addresses
+                $batchSize = 50; // Adjust this value based on the maximum recipients allowed by your email provider
+
+                $chunks = array_chunk($emails, $batchSize);
+
+                foreach ($chunks as $chunk) {
+                    Mail::to($chunk)->send(new AnnouncementMail($data));
+                    
+                    // Add a delay between batches to avoid rate limiting
+                    usleep(500000); // Sleep for 0.5 seconds (adjust as needed)
+                }
+            }
         }
 
         return redirect(route('admin-announcementDetails', ['id'=>$request->announcement_id]))->with("success", "The announcement as been updated!");

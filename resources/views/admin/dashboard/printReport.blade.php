@@ -89,6 +89,9 @@
         margin-top: 50px;
         text-align: center;
     }
+    .date {
+        text-align: right;
+    }
 </style>
 <header>
     <!-- Header content -->
@@ -107,6 +110,8 @@
         <h1>Hostel Summary Report</h1><br/>
 
         <div class="container" id="print">
+            <div class="date">Reported Date: {{now()}}</div><br/>
+            
             <div class="row">
                 <div class="col-sm">
                     <div class="content1">

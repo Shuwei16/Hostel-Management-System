@@ -83,6 +83,15 @@
                 @endif
             </td>
         </tr>
+        @if($registration->status == "Extended")
+        <tr>
+            <th scope="row" class="table-secondary" style="width: 25%">Action</th>
+            <!--View Receipt Button-->
+            <td>
+                <a class="btn btn-info btn-sm btn-action" href="{{ route('payment-receipt', ['id'=>$registration->registration_id]) }}" target="_blank">View Receipt <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        @endif
     </table>
 
 @endsection

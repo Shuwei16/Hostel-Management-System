@@ -125,6 +125,7 @@ Route::get('admin-printReport', [DashboardController::class, 'printReport'])->na
 
 //announcements
 Route::get('admin-announcement', [AnnouncementController::class, 'announcementList'])->name('admin-announcement');
+Route::get('admin-announcement-search', [AnnouncementController::class, 'searchAnnouncement'])->name('admin-announcement.search');
 Route::get('admin-announcementDetails-{id}', [AnnouncementController::class, 'announcementDetails'])->name('admin-announcementDetails');
 Route::post('admin-comment', [AnnouncementController::class, 'postComment'])->name('admin-comment');
 Route::get('admin-addAnnouncement', [AnnouncementController::class, 'addAnnouncement'])->name('admin-addAnnouncement');
@@ -135,10 +136,12 @@ Route::delete('admin-deleteAnnouncement-{id}', [AnnouncementController::class, '
 
 //registrations
 Route::get('admin-registrationRecord', [RegistrationController::class, 'showAllRegistrations'])->name('admin-registrationRecord');
+Route::get('admin-registrationRecord-search', [RegistrationController::class, 'searchRegistrations'])->name('admin-registrationRecord.search');
 Route::get('admin-registrationDetails-{id}', [RegistrationController::class, 'showRegistrationDetails'])->name('admin-registrationDetails');
 
 //semesters
 Route::get('admin-semesters', [RegistrationController::class, 'showAllSemesters'])->name('admin-semesters');
+Route::get('admin-semesters-search', [RegistrationController::class, 'searchSemesters'])->name('admin-semesters.search');
 Route::get('admin-addSemester', [RegistrationController::class, 'addSemester'])->name('admin-addSemester');
 Route::post('admin-addSemester', [RegistrationController::class, 'addSemesterPost'])->name('admin-addSemester.post');
 Route::get('admin-viewSemester-{id}', [RegistrationController::class, 'showSemesterDetails'])->name('admin-viewSemester');
@@ -156,17 +159,20 @@ Route::put('admin-roomCheckOut-{room_id}-{user_id}-{registration_id}', [FloorPla
 //room maintenances
 Route::get('admin-todaysMaintenance', [MaintenanceController::class, 'todaysMaintenances'])->name('admin-todaysMaintenance');
 Route::get('admin-allMaintenances', [MaintenanceController::class, 'allMaintenances'])->name('admin-allMaintenances');
+Route::get('admin-allMaintenances-search', [MaintenanceController::class, 'searchAllMaintenances'])->name('admin-allMaintenances.search');
 Route::get('admin-maintenanceDetails-{id}', [MaintenanceController::class, 'adminMaintenanceDetails'])->name('admin-maintenanceDetails');
 Route::put('admin-maintenanceDetails-{id}', [MaintenanceController::class, 'doneMaintenance'])->name('admin-maintenanceDetails.done');
 
 //vehicle parking applications
 Route::get('admin-vehicleParkingPassApps', [VehicleParkingController::class, 'vehicleParkingPassList'])->name('admin-vehicleParkingPassApps');
+Route::get('admin-vehicleParkingPassApps-search', [VehicleParkingController::class, 'searchVehicleParkingPass'])->name('admin-vehicleParkingPassApps.search');
 Route::get('admin-vehicleParkingPassDetails-{id}', [VehicleParkingController::class, 'parkingPassDetails'])->name('admin-vehicleParkingPassDetails');
 Route::post('admin-vehicleParkingPassDetails-{id}/approve', [VehicleParkingController::class, 'approveParkingPass'])->name('admin-vehicleParkingPass.approve');
 Route::post('admin-vehicleParkingPassDetails-{id}/reject', [VehicleParkingController::class, 'rejectParkingPass'])->name('admin-vehicleParkingPass.reject');
 
 //visitor entry registrations
 Route::get('admin-visitorRegistration', [VisitorController::class, 'visitorRegistrationList'])->name('admin-visitorRegistration');
+Route::get('admin-visitorRegistration-search', [VisitorController::class, 'searchVisitorRegistration'])->name('admin-visitorRegistration.search');
 Route::get('admin-visitorRegistrationDetails-{id}', [VisitorController::class, 'visitorRegistrationDetails'])->name('admin-visitorRegistrationDetails');
 Route::get('admin-scanQR', function () {return view('admin/visitor-registration/scanQR');});
 Route::post('admin-visitorRegistrationDetails-{id}/approve', [VisitorController::class, 'approveVisitorRegistration'])->name('admin-visitorRegistration.approve');
@@ -175,5 +181,6 @@ Route::get('admin-visitorRegistrationDetails-{id}/scan', [VisitorController::cla
 
 //resident attendances
 Route::get('admin-attendance', [FaceRecognitionController::class, 'showAllAttendances'])->name('admin-attendance');
+Route::get('admin-attendance-search', [FaceRecognitionController::class, 'searchAttendances'])->name('admin-attendance.search');
 Route::get('admin-scanFace', [FaceRecognitionController::class, 'scanFace'])->name('admin-scanFace');
 Route::post('admin-scanFace', [FaceRecognitionController::class, 'scanFacePost'])->name('admin-scanFace.post');

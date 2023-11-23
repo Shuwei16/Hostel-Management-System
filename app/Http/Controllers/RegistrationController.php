@@ -371,6 +371,29 @@ class RegistrationController extends Controller
         return view('admin/hostel-registration/registrationRecord', compact('registrations'));
     }
 
+    public function searchRegistrations(Request $request)
+    {
+        // get all registrations
+        $registrations = Registration::join('semesters', 'registrations.semester_id', '=', 'semesters.semester_id')
+                                         ->join('students', 'registrations.student_id', '=', 'students.student_id')
+                                         ->join('users', 'students.user_id', '=', 'users.id')
+                                         ->where('registrations.status', 'like', '%' . $request->search . '%')
+                                         ->orWhere('registrations.registration_type', 'like', '%' . $request->search . '%')
+                                         ->orWhere('semesters.semester_name', 'like', '%' . $request->search . '%')
+                                         ->orWhere('users.name', 'like', '%' . $request->search . '%')
+                                         ->select('registrations.registration_id as registration_id', 
+                                                  'registrations.status as status', 
+                                                  'registrations.created_at as registration_date', 
+                                                  'registrations.registration_type as registration_type',
+                                                  'semesters.semester_name as semester_name', 
+                                                  'semesters.start_date as start_date', 
+                                                  'users.name as name')
+                                         ->orderBy('registrations.registration_id', 'desc')
+                                         ->paginate(10);
+
+        return view('admin/hostel-registration/registrationRecord', compact('registrations'));
+    }
+
     //display registration details
     public function showRegistrationDetails($id)
     {
@@ -403,6 +426,15 @@ class RegistrationController extends Controller
     public function showAllSemesters()
     {
         $semesters = Semester::orderBy('semester_id', 'desc')
+                             ->paginate(10);
+
+        return view('admin/hostel-registration/semester', compact('semesters'));
+    }
+
+    public function searchSemesters(Request $request)
+    {
+        $semesters = Semester::where('semester_name', 'like', '%' . $request->search . '%')
+                             ->orderBy('semester_id', 'desc')
                              ->paginate(10);
 
         return view('admin/hostel-registration/semester', compact('semesters'));

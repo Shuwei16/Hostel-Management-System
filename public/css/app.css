@@ -188,6 +188,9 @@ h1 {
 .menu-dropdown {
     display: none;
 }
+.search {
+    width: 30%;
+}
 @media (max-width: 800px) {
     .sidebar {
         display: none; /* Hide the sidebar by default on small screens */

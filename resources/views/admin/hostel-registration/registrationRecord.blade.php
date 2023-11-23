@@ -20,6 +20,22 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
+    <!-- Search bar -->
+    <form class="search" action="{{route('admin-registrationRecord.search')}}" method="GET">
+        @csrf
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="search" placeholder="Search..." required>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Check whether have registration record -->
+    @if ($registrations->isEmpty())
+        <p class="alert alert-danger">No registration record found.</p>
+    @endif
+
     <table class="table" style="font-size: 1vmax">
         <thead>
             <tr>
