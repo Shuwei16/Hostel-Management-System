@@ -13,6 +13,7 @@ use App\Http\Controllers\VehicleParkingController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\FaceRecognitionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,9 +117,11 @@ Route::put('resident-visitorRegistrationDetails-{id}', [VisitorController::class
 //attendance
 Route::get('resident-attendance', [FaceRecognitionController::class, 'showResidentAttendances'])->name('resident-attendance');
 
+//chat
+Route::get('resident-chat', [ChatController::class, 'residentChat'])->name('resident-chat');
+Route::post('resident-chat', [ChatController::class, 'residentSendMessage'])->name('resident-chat.post');
 
 /* Admin */
-
 //dashboard
 Route::get('admin-dashboard', [DashboardController::class, 'showDashboard'])->name('admin-dashboard')->middleware('admin');
 Route::get('admin-printReport', [DashboardController::class, 'printReport'])->name('admin-printReport');
@@ -184,3 +187,9 @@ Route::get('admin-attendance', [FaceRecognitionController::class, 'showAllAttend
 Route::get('admin-attendance-search', [FaceRecognitionController::class, 'searchAttendances'])->name('admin-attendance.search');
 Route::get('admin-scanFace', [FaceRecognitionController::class, 'scanFace'])->name('admin-scanFace');
 Route::post('admin-scanFace', [FaceRecognitionController::class, 'scanFacePost'])->name('admin-scanFace.post');
+
+//security
+Route::get('admin-security', function () {return view('admin/security/security');});
+
+//messages
+Route::get('admin-message', [ChatController::class, 'adminMessages'])->name('resident-chat');

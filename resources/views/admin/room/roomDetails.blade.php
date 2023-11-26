@@ -54,10 +54,6 @@
             <th scope="row" class="table-secondary">Gender</th>
             <td>{{ $block->gender }}</td>
         </tr>
-        <tr>
-            <th scope="row" class="table-secondary">Race Restriction</th>
-            <td>{{ $room->race_restriction }}</td>
-        </tr>
     </table>
     <table class="table table-details">
         <tr>

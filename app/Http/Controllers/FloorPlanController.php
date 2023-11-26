@@ -45,7 +45,7 @@ class FloorPlanController extends Controller
     public function showRoomDetails($id) 
     {
         $room = Room::where('room_id', $id)
-                     ->select('room_id', 'room_code', 'block_id', 'floor', 'occupied_slots', 'race_restriction')
+                     ->select('room_id', 'room_code', 'block_id', 'floor', 'occupied_slots')
                      ->first();
         $block = Block::where('block_id', $room->block_id)
                       ->select('block_name', 'gender')
@@ -147,9 +147,6 @@ class FloorPlanController extends Controller
         $room = Room::find($registration->room_id);
         // remove room asignment
         $room->occupied_slots--; // Decrement occupied_slots
-        if ($room->occupied_slots === 0) {
-            $room->race_restriction = "none"; // Set race_restriction to "none" if occupied_slots becomes 0
-        }
 
         return redirect(route('admin-roomDetails', ['id'=>$room_id]))->with("success", "Room checked out successfuly!");
     }

@@ -20,7 +20,7 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <form class="input_form" action="{{ route('resident-addVisitorRegistration.post') }}" method="post" onsubmit="return confirm('Are your sure to register this visior?')">
+    <form class="input-form" action="{{ route('resident-addVisitorRegistration.post') }}" method="post" onsubmit="return confirm('Are your sure to register this visior?')">
         @csrf
 
         <div class="form-group">

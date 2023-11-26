@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('room_no');
             $table->char('floor');
             $table->integer('occupied_slots')->default(0); //0-empty 1-1ppl 2-full
-            $table->string('race_restriction')->default('none');
             $table->timestamps();
         });
     }

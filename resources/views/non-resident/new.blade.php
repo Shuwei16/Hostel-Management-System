@@ -1,6 +1,7 @@
 @extends('layouts/master_non-resident')
 
 @section('content')
+
     <h1>New Registration</h1><br>
     <!-- Any message within the page -->
     @if($errors->any())
@@ -63,19 +64,21 @@
                     <input type="text" class="form-control" name="price" id="price" placeholder="price" value="RM {{ $semester->price }}" disabled><br>
                 </div>
                 <div class="form-group">
-                    <table class="col-2">
-                        <tr>
-                            <td>
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{auth()->user()->name}}" disabled>
-                            </td>
-                            <td>
-                                <label for="ic">IC/Passport</label>
-                                <input type="text" class="form-control" name="ic" id="ic" placeholder="e.g. 990101-10-1234 or AB1234567" required>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{auth()->user()->name}}" disabled><br>
+                </div>
+                <div class="form-group">
+                    <label for="ic">IC/Passport</label>
+                    <input type="text" class="form-control" name="ic" id="ic" placeholder="e.g. 990101-10-1234 or AB1234567" required><br>
+                </div>
+                <label for="student_card">Student Card Photo</label><br>
+                <span style="font-size: 12px; color: grey">*Sample</span><br>
+                <img style="margin-bottom: 10px" src="{{ asset('images/sample-student-card.jpg')}}" width="200"/>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" name="student_card" id="student_card" accept="image/*">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="scanStudentCard()">Upload</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <table class="col-2">
@@ -111,10 +114,6 @@
                     </table>
                     <br>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="homeAddress">Home Address</label>
-                    <textarea id="homeAddress" class="form-control" name="homeAddress" rows="3" cols="50"></textarea><br>
-                </div> -->
                 <div class="form-group">
                     <table class="col-2">
                         <tr>
@@ -140,21 +139,26 @@
                     </table>
                     <br>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="emergencyName">Emergency Contact Name</label>
-                    <input type="text" class="form-control" id="emergencyName" placeholder="emergencyName"><br>
+                <div class="form-group">
+                    <label for="programme">Programme Name</label>
+                    <input type="text" class="form-control" name="programme" id="programme" placeholder="e.g. Bachelor's of Software Engineering" required><br>
                 </div>
                 <div class="form-group">
-                    <label for="emergencyContact">Emergency Contact</label>
-                    <input type="text" class="form-control" id="emergencyContact" placeholder="emergencyContact"><br>
-                </div> -->
-                <br>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" name="share_race" id="share_race">
-                    <label class="form-check-label" for="share_race">
-                        I don't mind sharing a room with a different race.
-                    </label>
+                    <table class="col-2">
+                        <tr>
+                            <td>
+                                <label for="total_year">Total Year of Study</label>
+                                <input type="number" class="form-control" name="total_year" id="total_year" placeholder="e.g. 3" pattern="[1-9]" required>
+                            </td>
+                            <td>
+                                <label for="current_year">Current Year of Study</label>
+                                <input type="number" class="form-control" name="current_year" id="current_year" placeholder="e.g. 1" pattern="[1-9]" required>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
                 </div>
+                <br>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" name="terms_and_conditions" id="terms_and_conditions" required>
                     <label class="form-check-label" for="terms_and_conditions">
@@ -172,4 +176,32 @@
     @else 
         <p class="alert alert-primary">You have alrealy registered for this semester. Click <a href="{{route('non-resident-approval', ['id'=>$registration->registration_id])}}">here</a> to view details.</p>
     @endif
+
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <script>
+        function scanStudentCard() {
+            // Get the input element
+            var input = document.getElementById('student_card');
+            const file = input.files[0];
+
+            (async () => {
+                const worker = await Tesseract.createWorker('eng');
+                const { data: { text } } = await worker.recognize(file);
+                console.log(text);
+
+                const pattern = /[A-Z]?\d{2}[A-Z]{3}\d{5}/;
+                const match = text.match(pattern);
+
+                if (match) {
+                    const result = match[0];
+                    document.getElementById('student_card_no').value = result;
+                    console.log("Result:", result);
+                } else {
+                    console.log("Pattern not found");
+                }
+
+                await worker.terminate();
+            })();
+        } 
+    </script>
 @endsection

@@ -65,7 +65,10 @@ class RegistrationController extends Controller
             'contact_no' => 'required',
             'gender' => 'required|in:Male,Female',
             'race' => 'required|in:Chinese,Malay,Indian,Other',
-            'citizenship' => 'required|in:Citizen,Non-citizen'
+            'citizenship' => 'required|in:Citizen,Non-citizen',
+            'programme' => 'required',
+            'total_year' => 'required',
+            'current_year' => 'required'
         ]);
 
         // find available rooms
@@ -74,24 +77,12 @@ class RegistrationController extends Controller
                        ->orderBy('block_id', 'desc')
                        ->get();
 
-        if($request->has('share_race')) { // share room with different race
-            foreach ($blocks as $block) {
-                $availableRooms = Room::where('block_id', $block->block_id)
-                               ->where('occupied_slots', '<', 2) //the room is empty or still available for 1 people
-                               ->whereIn('race_restriction', ['none']) //find roommate with same race
-                               ->select('room_id', 'room_code', 'occupied_slots', 'race_restriction')
-                               ->orderBy('room_id', 'asc')
-                               ->get();
-            }
-        } else { // share room with same race only
-            foreach ($blocks as $block) {
-                $availableRooms = Room::where('block_id', $block->block_id)
-                               ->where('occupied_slots', '<', 2) //the room is empty or still available for 1 people
-                               ->whereIn('race_restriction', [$request->race, 'none']) //find roommate with same race
-                               ->select('room_id', 'room_code', 'occupied_slots', 'race_restriction')
-                               ->orderBy('room_id', 'asc')
-                               ->get();
-            }
+        foreach ($blocks as $block) {
+            $availableRooms = Room::where('block_id', $block->block_id)
+                           ->where('occupied_slots', '<', 2) //the room is empty or still available for 1 people
+                           ->select('room_id', 'room_code', 'occupied_slots')
+                           ->orderBy('room_id', 'asc')
+                           ->get();
         }
 
         $room = $availableRooms->first();
@@ -111,6 +102,9 @@ class RegistrationController extends Controller
             $student_data['gender'] = $request->gender;
             $student_data['race'] = $request->race;
             $student_data['citizenship'] = $request->citizenship;
+            $student_data['programme'] = $request->programme;
+            $student_data['total_year'] = $request->total_year;
+            $student_data['current_year'] = $request->current_year;
             $student = Student::create($student_data);
         } else {
             // update student info
@@ -120,6 +114,9 @@ class RegistrationController extends Controller
             $student->gender = $request->gender;
             $student->race = $request->race;
             $student->citizenship = $request->citizenship;
+            $student->programme = $request->programme;
+            $student->total_year = $request->total_year;
+            $student->current_year = $request->current_year;
             $student->save();
         }
 
@@ -141,9 +138,6 @@ class RegistrationController extends Controller
             
             // update room status
             $room->occupied_slots++;
-            if(!$request->has('share_race')) {
-                $room->race_restriction =  $request->race;
-            }
 
             // save data
             $room->save();
@@ -229,10 +223,6 @@ class RegistrationController extends Controller
             // remove room asignment
             $room->occupied_slots--; // Decrement occupied_slots
 
-            if ($room->occupied_slots === 0) {
-                $room->race_restriction = "none"; // Set race_restriction to "none" if occupied_slots becomes 0
-            }
-
             // update registration status
             $registration->status = "Payment Failed";
 
@@ -270,10 +260,6 @@ class RegistrationController extends Controller
 
         // remove room asignment
         $room->occupied_slots--; // Decrement occupied_slots
-
-        if ($room->occupied_slots === 0) {
-            $room->race_restriction = "none"; // Set race_restriction to "none" if occupied_slots becomes 0
-        }
 
         // update registration status
         $registration->status = "Canceled";

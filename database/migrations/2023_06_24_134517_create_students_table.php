@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('gender');
             $table->string('race');
             $table->string('citizenship');
+            $table->string('programme');
+            $table->integer('total_year');
+            $table->integer('current_year');
             $table->text('address')->nullable();
             $table->string('emergency_contact_name')->nullable();
             $table->string('emergency_contact')->nullable();

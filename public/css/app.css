@@ -31,6 +31,7 @@ html, body {
 .sidebar ul li {
     padding: 20px 10px 20px 10px;
     cursor: pointer;
+    transition: 0.5s;
 }
 .sidebar ul li:hover {
     background-color: #F9C03D;
@@ -105,6 +106,7 @@ html, body {
 .dropdown-content ul li {
     padding: 10px;
     cursor: pointer;
+    transition: 0.5s;
 }
 .dropdown-content ul li:hover {
     background-color: #B1C1CD;

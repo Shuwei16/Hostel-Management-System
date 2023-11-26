@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
     protected $table = 'students';
     protected $primaryKey = 'student_id';
-    protected $fillable = ['user_id', 'ic', 'student_card_no', 'resident_id', 'contact_no', 'gender', 'race', 'citizenship', 'address', 'emergency_contact_name', 'emergency_contact_no'];
+    protected $fillable = ['user_id', 'ic', 'student_card_no', 'resident_id', 'contact_no', 'gender', 'race', 'citizenship', 'programme', 'total_year', 'current_year', 'address', 'emergency_contact_name', 'emergency_contact_no'];
 
     public  function user()
     {
@@ -35,5 +35,10 @@ class Student extends Model
     public  function visitorRegistration()
     {
         return $this->hasMany(VisitorRegistration::class, 'visitor_reg_id');
+    }
+
+    public  function chat()
+    {
+        return $this->hasMany(Chat::class, 'chat_id');
     }
 }

@@ -49,6 +49,14 @@
             <td>{{ $profileInfo->student_card_no }}</td>
         </tr>
         <tr>
+            <th scope="row" class="table-secondary">Programme Name</th>
+            <td>{{ $profileInfo->programme }}</td>
+        </tr>
+        <tr>
+            <th scope="row" class="table-secondary">Year of Study</th>
+            <td>{{ $profileInfo->current_year }} / {{ $profileInfo->total_year }}</td>
+        </tr>
+        <tr>
             <th scope="row" class="table-secondary">Resident ID</th>
             <td>{{ $profileInfo->resident_id }}</td>
         </tr>

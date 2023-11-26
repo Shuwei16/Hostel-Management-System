@@ -33,7 +33,7 @@
     <h1>Announcements</h1>
 
     <!-- Check whether have any announcement -->
-    @if ($announcements === null)
+    @if ($announcements->isEmpty())
         <p class="alert alert-danger">No announcement yet.</p>
     @else
         <div class="announcement-containter">

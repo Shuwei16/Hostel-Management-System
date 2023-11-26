@@ -48,6 +48,14 @@
                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                 Residents' Attendances
             </li>
+            <li onclick="window.location.href = 'admin-security';">
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                Security
+            </li>
+            <li onclick="window.location.href = 'admin-message';">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                Messages
+            </li>
         </ul>
     </div>
     <div class="content">
@@ -110,6 +118,14 @@
                 <li onclick="window.location.href = 'admin-attendance';">
                     <i class="fa fa-clock-o" aria-hidden="true"></i>
                     Residents' Attendances
+                </li>
+                <li onclick="window.location.href = 'admin-security';">
+                    <i class="fa fa-shield" aria-hidden="true"></i>
+                    Security
+                </li>
+                <li onclick="window.location.href = 'admin-message';">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    Messages
                 </li>
             </ul>
         </div>

@@ -68,24 +68,24 @@
         });
 
         function playVideo() {
-        if (!navigator.mediaDevices) {
-            console.error("mediaDevices not supported");
-            return;
-        }
-        navigator.mediaDevices
-            .getUserMedia({
-            video: {
-                width: { min: 640, ideal: 1280, max: 1920 },
-                height: { min: 360, ideal: 720, max: 1080 },
-            },
-                audio: false,
-            })
-                .then(function (stream) {
-                video.srcObject = stream;
-            })
-                .catch(function (err) {
-                console.log(err);
-            });
+            if (!navigator.mediaDevices) {
+                console.error("mediaDevices not supported");
+                return;
+            }
+            navigator.mediaDevices
+                .getUserMedia({
+                video: {
+                    width: { min: 640, ideal: 1280, max: 1920 },
+                    height: { min: 360, ideal: 720, max: 1080 },
+                },
+                    audio: false,
+                })
+                    .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                    .catch(function (err) {
+                    console.log(err);
+                });
         }
 
         async function getLabeledFaceDescriptions() {

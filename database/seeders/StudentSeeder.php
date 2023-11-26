@@ -28,6 +28,9 @@ class StudentSeeder extends Seeder
                 'gender' => "Female",
                 'race' => $race,
                 'citizenship' => "Citizen",
+                'programme' => "Bachelor's of Software Engineering",
+                'total_year' => 3,
+                'current_year' => 2,
                 'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
                 'emergency_contact_name' => "Lee Ah Meng",
                 'emergency_contact' => "0166666666"
@@ -49,6 +52,9 @@ class StudentSeeder extends Seeder
                 'gender' => "Male",
                 'race' => $race,
                 'citizenship' => "Citizen",
+                'programme' => "Bachelor's of Software Engineering",
+                'total_year' => 3,
+                'current_year' => 2,
                 'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
                 'emergency_contact_name' => "Lee Ah Meng",
                 'emergency_contact' => "0166666666"

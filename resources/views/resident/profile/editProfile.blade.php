@@ -22,9 +22,40 @@
 
     <form class="input-form" action="{{route('resident-editProfile.post')}}" method="post">
         @csrf
+        <label for="student_card">Update New Student Card Photo</label><br>
+        <span style="font-size: 12px; color: grey">*Sample</span><br>
+        <img style="margin-bottom: 10px" src="{{ asset('images/sample-student-card.jpg')}}" width="200"/>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" name="student_card" id="student_card" accept="image/*">
+            <div class="input-group-append">
+                <button class="btn btn-secondary" type="button" onclick="scanStudentCard()">Upload</button>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="student_card_no">Student ID</label>
             <input type="text" class="form-control" name="student_card_no" id="student_card_no" placeholder="e.g. 22WMR00001" pattern="^\d{2}[A-Z]{3}\d{5}$" value="{{ $profileInfo->student_card_no }}" required><br>
+        </div>
+
+        <div class="form-group">
+            <label for="programme">Programme Name</label>
+            <input type="text" class="form-control" name="programme" id="programme" placeholder="e.g. Bachelor's of Software Engineering" value="{{ $profileInfo->programme }}" required><br>
+        </div>
+
+        <div class="form-group">
+            <table class="col-2">
+                <tr>
+                    <td>
+                        <label for="total_year">Total Year of Study</label>
+                        <input type="number" class="form-control" name="total_year" id="total_year" placeholder="e.g. 3" pattern="[1-9]" value="{{ $profileInfo->total_year }}" required>
+                    </td>
+                    <td>
+                        <label for="current_year">Current Year of Study</label>
+                        <input type="number" class="form-control" name="current_year" id="current_year" placeholder="e.g. 1" pattern="[1-9]" value="{{ $profileInfo->current_year }}" required>
+                    </td>
+                </tr>
+            </table>
+            <br>
         </div>
 
         <div class="form-group">
@@ -87,4 +118,32 @@
             <button type="submit">Edit</button><br><br>
         </div>
     </form>
+
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <script>
+        function scanStudentCard() {
+            // Get the input element
+            var input = document.getElementById('student_card');
+            const file = input.files[0];
+
+            (async () => {
+                const worker = await Tesseract.createWorker('eng');
+                const { data: { text } } = await worker.recognize(file);
+                console.log(text);
+
+                const pattern = /[A-Z]?\d{2}[A-Z]{3}\d{5}/;
+                const match = text.match(pattern);
+
+                if (match) {
+                    const result = match[0];
+                    document.getElementById('student_card_no').value = result;
+                    console.log("Result:", result);
+                } else {
+                    console.log("Pattern not found");
+                }
+
+                await worker.terminate();
+            })();
+        } 
+    </script>
 @endsection

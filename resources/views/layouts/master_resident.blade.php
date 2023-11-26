@@ -40,6 +40,10 @@
                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                 Attendances
             </li>
+            <li onclick="window.location.href = 'resident-chat';">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                Chat
+            </li>
         </ul>
     </div>
     <div class="content">
@@ -102,6 +106,10 @@
                 <li onclick="window.location.href = 'resident-attendance';">
                     <i class="fa fa-clock-o" aria-hidden="true"></i>
                     Attendances
+                </li>
+                <li onclick="window.location.href = 'resident-chat';">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    Chat
                 </li>
             </ul>
         </div>
