@@ -38,6 +38,7 @@
         margin: 10px;
         padding: 5px 10px;
         border-radius: 20px;
+        word-wrap: break-word;
     }
 
     .received {

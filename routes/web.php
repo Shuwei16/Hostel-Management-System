@@ -192,4 +192,7 @@ Route::post('admin-scanFace', [FaceRecognitionController::class, 'scanFacePost']
 Route::get('admin-security', function () {return view('admin/security/security');});
 
 //messages
-Route::get('admin-message', [ChatController::class, 'adminMessages'])->name('resident-chat');
+Route::get('admin-message', [ChatController::class, 'adminMessages'])->name('admin-message');
+Route::get('admin-message-search', [ChatController::class, 'searchChat'])->name('admin-message.search');
+Route::post('admin-message', [ChatController::class, 'selectUser'])->name('admin-message.select');
+Route::post('admin-message-sent', [ChatController::class, 'adminSendMessage'])->name('admin-message.post');
