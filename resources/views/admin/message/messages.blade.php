@@ -173,7 +173,7 @@
                             <div class="chat-messages" id="chat-messages">
                             @if($messages != '')
                                 @foreach($messages as $item)
-                                    <div class="message @if($item->sender_id == auth()->id()) sent @else received @endif">{{$item->message}}</div>
+                                    <div class="message @if($item->sender_id == auth()->id()) sent @else received @endif">{!! nl2br(e($item->message)) !!}</div>
                                 @endforeach
                                 @if($messages->isEmpty())
                                     <div class="alert alert-warning" style="width: 100%">Send a message to start a new chat now.</div>
@@ -188,7 +188,7 @@
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input type="hidden" class="form-control" name="user_id" id="user_id" value="@if($user != '') {{$user->user_id}} @endif" required>
-                                    <input type="text" class="form-control" name="message" id="message" placeholder="Type your message..." aria-label="comment" aria-describedby="basic-addon2" required>
+                                    <textarea class="form-control" name="message" id="message" placeholder="Type your message..." rows="1" required></textarea>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                     </div>

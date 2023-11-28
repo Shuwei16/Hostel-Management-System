@@ -172,6 +172,7 @@ Route::get('admin-vehicleParkingPassApps-search', [VehicleParkingController::cla
 Route::get('admin-vehicleParkingPassDetails-{id}', [VehicleParkingController::class, 'parkingPassDetails'])->name('admin-vehicleParkingPassDetails');
 Route::post('admin-vehicleParkingPassDetails-{id}/approve', [VehicleParkingController::class, 'approveParkingPass'])->name('admin-vehicleParkingPass.approve');
 Route::post('admin-vehicleParkingPassDetails-{id}/reject', [VehicleParkingController::class, 'rejectParkingPass'])->name('admin-vehicleParkingPass.reject');
+Route::get('admin-verifyVehicle', function () {return view('admin/vehicle-parking-pass/verifyVehicle');});
 
 //visitor entry registrations
 Route::get('admin-visitorRegistration', [VisitorController::class, 'visitorRegistrationList'])->name('admin-visitorRegistration');

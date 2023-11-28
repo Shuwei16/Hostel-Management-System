@@ -1,7 +1,7 @@
 @extends('layouts/master_admin')
 
 @section('content')
-    <h1>Vehicle Parking Pass Applications</h1><br>
+    <h1>Vehicle Parking Pass Applications <a class="btn btn-primary" href="admin-verifyVehicle" title="Verify Vehicle" style="font-size: 1vmax; float: right;"><i class="fa fa-car" aria-hidden="true"></i> Verify Vehicle</a></h1><br>
     <!-- Any error within the page -->
     @if($errors->any())
         <div class="col-12">
@@ -32,7 +32,7 @@
 
     <!-- Check whether have any vehicle parking pass application-->
     @if ($applications->isEmpty())
-        <p class="alert alert-danger">No vehicle parking pass application record found.</p>
+        <p class="alert alert-danger">No vehicle parking pass application record found. </p>
     @endif
 
     <table class="table" style="font-size: 1vmax">

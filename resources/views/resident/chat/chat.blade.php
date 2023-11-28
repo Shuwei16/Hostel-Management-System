@@ -82,7 +82,7 @@
                         <div class="message received">Hello, how can I help you today? <br/><br/>(This is an auto generated message. You can now chat with hostel admin if you are facing any issue, and you will be replied during working hours.)</div>
                     @else 
                         @foreach($messages as $item)
-                            <div class="message @if($item->sender_id == auth()->id()) sent @else received @endif">{{$item->message}}</div>
+                            <div class="message @if($item->sender_id == auth()->id()) sent @else received @endif">{!! nl2br(e($item->message)) !!}</div>
                         @endforeach
                     @endif
                 </div>
@@ -93,7 +93,7 @@
                 <form action="{{route('resident-chat.post')}}" method="post" style="width: 100%">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="message" id="message" placeholder="Type your message..." required>
+                        <textarea class="form-control" name="message" id="message" placeholder="Type your message..." rows="1" required></textarea>
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>
