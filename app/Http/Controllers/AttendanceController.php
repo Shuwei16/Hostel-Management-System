@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Attendance;
+use App\Models\ParkingApplication;
 use Illuminate\Support\Facades\File;
 
-class FaceRecognitionController extends Controller
+class AttendanceController extends Controller
 {
     function scanFace(){
         $directoryPath = public_path('labels');
@@ -82,6 +83,48 @@ class FaceRecognitionController extends Controller
         file_put_contents($directoryPath . '/4.png', $photo4binaryData);
 
         return redirect(route('resident-profile'))->with('success', 'Your photo has been recorded successfully!');
+    }
+
+    function scanCarPlatePost(Request $request){
+        $vehicle = ParkingApplication::where('plate_no', '=', $request->plate_no)
+                                     ->where('status', '=', 'Approved')
+                                     ->first();
+        
+        if($vehicle != null) {
+            $atdRecord = Attendance::where('student_id', '=', $vehicle->student_id)
+                               ->orderBy('attendance_id', 'desc')
+                               ->first();
+
+            if($atdRecord && $atdRecord->attendance_type == 'check in') {
+                $type = 'check out';
+            } else {
+                $type = 'check in';
+            }
+
+            Attendance::create([
+                'student_id' => $vehicle->student_id,
+                'attendance_type' => $type
+            ]);
+
+            $residentInfo = Student::join('users', 'users.id', '=', 'students.user_id')
+                                   ->where('students.student_id', '=', $vehicle->student_id)
+                                   ->select(
+                                    'users.name as name',
+                                    'students.resident_id as resident_id'
+                                   )
+                               ->first();
+
+            return redirect(route('admin-attendance'))->with("success", "Attendance recorded: " . $residentInfo->resident_id . '_' . $residentInfo->name . " - " . $type);
+        } else {
+            return redirect(route('admin-scanCarPlate'))->with("error", "Car plate not found!");
+        }
+
+        Attendance::create([
+            'student_id' => $residentInfo->student_id,
+            'attendance_type' => $type
+        ]);
+
+        
     }
 
     public function showAllAttendances() {

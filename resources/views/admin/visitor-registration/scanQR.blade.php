@@ -21,8 +21,7 @@
     <style>
     #preview{
         margin:auto;
-        border: 2px solid #293952; /* Set the border color and width */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow to make it stand out */
+        border: 1px solid #CCCCCC;
     }
 
     @media only screen and (max-width: 800px) {

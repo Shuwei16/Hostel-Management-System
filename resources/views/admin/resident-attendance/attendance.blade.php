@@ -1,7 +1,7 @@
 @extends('layouts/master_admin')
 
 @section('content')
-    <h1>Residents' Attendances <a class="btn btn-primary" href="admin-scanFace" title="Scan Face" style="font-size: 1vmax; float: right;"><i class="fa fa-user-o" aria-hidden="true"></i> Scan Face</a></h1><br>
+    <h1>Residents' Attendances <a class="btn btn-primary" href="admin-scanFace" title="Record Entry Status" style="font-size: 1vmax; float: right;"><i class="fa fa-check-square-o" aria-hidden="true"></i> Record Entry Status</a></h1><br>
     <!-- Any error within the page -->
     @if($errors->any())
         <div class="col-12">

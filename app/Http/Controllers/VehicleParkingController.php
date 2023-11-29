@@ -200,4 +200,17 @@ class VehicleParkingController extends Controller
 
         return redirect(route('admin-vehicleParkingPassDetails', ['id' => $id]))->with("success", "This vehicle parking pass application has been rejected successfully!");
     }
+
+    public function verifyVehicle(Request $request) {
+
+        $vehicle = ParkingApplication::where('plate_no', '=', $request->plate_no)
+                                     ->where('status', '=', 'Approved')
+                                     ->get();
+        
+        if(!$vehicle->isEmpty()) {
+            return redirect(route('admin-verifyVehicle'))->with("success", "Valid Vehicle!");
+        } else {
+            return redirect(route('admin-verifyVehicle'))->with("error", "Invalid Vehicle!");
+        }
+    }
 }

@@ -11,7 +11,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\VehicleParkingController;
 use App\Http\Controllers\VisitorController;
-use App\Http\Controllers\FaceRecognitionController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChatController;
 
@@ -67,7 +67,7 @@ Route::get('resident-profile', [ProfileController::class, 'showProfile'])->name(
 Route::get('resident-editProfile', [ProfileController::class, 'editProfile'])->name('resident-editProfile');
 Route::post('resident-editProfile', [ProfileController::class, 'editProfilePost'])->name('resident-editProfile.post');
 Route::get('resident-recordFace', function () { return view('resident/profile/recordFace'); })->name('resident-recordFace');
-Route::post('resident-recordFace', [FaceRecognitionController::class, 'storePhoto'])->name('resident-recordFace.post');
+Route::post('resident-recordFace', [AttendanceController::class, 'storePhoto'])->name('resident-recordFace.post');
 Route::get('resident-changePassword', function () { return view('resident/profile/changePassword'); })->name('resident-changePassword');
 Route::post('resident-changePassword', [AuthController::class, 'changePasswordPost'])->name('resident-changePassword.post');
 Route::get('resident-forgotPassword', function () { return view('resident/profile/forgotPassword'); })->name('resident-forgotPassword');
@@ -115,7 +115,7 @@ Route::get('resident-visitorRegistrationDetails-{id}', [VisitorController::class
 Route::put('resident-visitorRegistrationDetails-{id}', [VisitorController::class, 'cancelVisitorRegistration'])->name('resident-visitorRegistration.cancel');
 
 //attendance
-Route::get('resident-attendance', [FaceRecognitionController::class, 'showResidentAttendances'])->name('resident-attendance');
+Route::get('resident-attendance', [AttendanceController::class, 'showResidentAttendances'])->name('resident-attendance');
 
 //chat
 Route::get('resident-chat', [ChatController::class, 'residentChat'])->name('resident-chat');
@@ -172,7 +172,8 @@ Route::get('admin-vehicleParkingPassApps-search', [VehicleParkingController::cla
 Route::get('admin-vehicleParkingPassDetails-{id}', [VehicleParkingController::class, 'parkingPassDetails'])->name('admin-vehicleParkingPassDetails');
 Route::post('admin-vehicleParkingPassDetails-{id}/approve', [VehicleParkingController::class, 'approveParkingPass'])->name('admin-vehicleParkingPass.approve');
 Route::post('admin-vehicleParkingPassDetails-{id}/reject', [VehicleParkingController::class, 'rejectParkingPass'])->name('admin-vehicleParkingPass.reject');
-Route::get('admin-verifyVehicle', function () {return view('admin/vehicle-parking-pass/verifyVehicle');});
+Route::get('admin-verifyVehicle', function () {return view('admin/vehicle-parking-pass/verifyVehicle');})->name('admin-verifyVehicle');
+Route::post('admin-verifyVehicle', [VehicleParkingController::class, 'verifyVehicle'])->name('admin-verifyVehicle.post');
 
 //visitor entry registrations
 Route::get('admin-visitorRegistration', [VisitorController::class, 'visitorRegistrationList'])->name('admin-visitorRegistration');
@@ -184,10 +185,12 @@ Route::post('admin-visitorRegistrationDetails-{id}/reject', [VisitorController::
 Route::get('admin-visitorRegistrationDetails-{id}/scan', [VisitorController::class, 'scanVisitorEntry'])->name('admin-visitorRegistration.scan');
 
 //resident attendances
-Route::get('admin-attendance', [FaceRecognitionController::class, 'showAllAttendances'])->name('admin-attendance');
-Route::get('admin-attendance-search', [FaceRecognitionController::class, 'searchAttendances'])->name('admin-attendance.search');
-Route::get('admin-scanFace', [FaceRecognitionController::class, 'scanFace'])->name('admin-scanFace');
-Route::post('admin-scanFace', [FaceRecognitionController::class, 'scanFacePost'])->name('admin-scanFace.post');
+Route::get('admin-attendance', [AttendanceController::class, 'showAllAttendances'])->name('admin-attendance');
+Route::get('admin-attendance-search', [AttendanceController::class, 'searchAttendances'])->name('admin-attendance.search');
+Route::get('admin-scanFace', [AttendanceController::class, 'scanFace'])->name('admin-scanFace');
+Route::post('admin-scanFace', [AttendanceController::class, 'scanFacePost'])->name('admin-scanFace.post');
+Route::get('admin-scanCarPlate', function () {return view('admin/resident-attendance/scanCarPlate');})->name('admin-scanCarPlate');
+Route::post('admin-scanCarPlate', [AttendanceController::class, 'scanCarPlatePost'])->name('admin-scanCarPlate.post');
 
 //security
 Route::get('admin-security', function () {return view('admin/security/security');});

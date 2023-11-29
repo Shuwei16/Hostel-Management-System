@@ -14,6 +14,10 @@
             transform: translate(-50%, -50%);
         }
 
+        #video {
+            border: 1px solid #CCCCCC;
+        }
+
         @media only screen and (max-width: 900px) {
             #video{
                 width: 100%;
@@ -38,7 +42,8 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <a class="btn btn-secondary" href="admin-attendance" title="Back to Resident Attendance"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
+    <a class="btn btn-secondary" href="admin-attendance" title="Back to Resident Attendance"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
+    <a class="btn btn-primary" href="admin-scanCarPlate" title="Scan Car Plate" style="font-size: 1vmax; float: right;"><i class="fa fa-car" aria-hidden="true"></i> Scan Car Plate</a><br><br>
     <div id="video-container" class="video-container">
         <h1>Show Your Face Here</h1><br/>
         <video id="video" autoplay muted width="800" height="600"></video>

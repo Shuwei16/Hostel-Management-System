@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Vehicle Parking Pass Applications <a class="btn btn-primary" href="admin-verifyVehicle" title="Verify Vehicle" style="font-size: 1vmax; float: right;"><i class="fa fa-car" aria-hidden="true"></i> Verify Vehicle</a></h1><br>
-    <!-- Any error within the page -->
+    <!-- Any message within the page -->
     @if($errors->any())
         <div class="col-12">
             @foreach($errors->all() as $error)

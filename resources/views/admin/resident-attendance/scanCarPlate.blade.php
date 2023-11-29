@@ -20,8 +20,9 @@
         margin-bottom: 5px;
     }
 </style>
-    <a class="btn btn-secondary" href="admin-vehicleParkingPassApps" title="Back to Parking Application History"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
-    <h1>Verify Vehicle</h1><br>
+    <a class="btn btn-secondary" href="admin-attendance" title="Back to Resident Attendance"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
+    <a class="btn btn-primary" href="admin-scanFace" title="Scan Face" style="font-size: 1vmax; float: right;"><i class="fa fa-user" aria-hidden="true"></i> Scan Face</a><br><br>
+    <h1>Scan Car Plate</h1><br>
 
     <!-- Any message within the page -->
     @if($errors->any())
@@ -50,12 +51,12 @@
                 <button id="startbutton" class="btn btn-info"><i class="fa fa-camera" aria-hidden="true"></i> Take photo</button>
             </div>
             <div class="col-sm">
-                <p>Step 2: Verify the car plate number</p>
+                <p>Step 2: Confirm car plate and record attendance</p>
                 <canvas id="canvas"> </canvas>
-                <form class="input-form" action="{{route('admin-verifyVehicle.post')}}" method="post">
+                <form class="input-form" action="{{route('admin-scanCarPlate.post')}}" method="post">
                     @csrf
                     <input type="text" class="form-control" name="plate_no" id="plate_no" required>
-                    <button id="verify" class="btn btn-success" type="submit" disabled><i class="fa fa-check-circle-o" aria-hidden="true"></i> Verify</button>
+                    <button id="verify" class="btn btn-success" type="submit" disabled><i class="fa fa-check-circle-o" aria-hidden="true"></i> Record Attendance</button>
                 </form>
             </div>
         </div>
