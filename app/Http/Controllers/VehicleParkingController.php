@@ -208,9 +208,9 @@ class VehicleParkingController extends Controller
                                      ->get();
         
         if(!$vehicle->isEmpty()) {
-            return redirect(route('admin-verifyVehicle'))->with("success", "Valid Vehicle!");
+            return redirect(route('admin-verifyVehicle'))->with("success", "Vehicle is registered!");
         } else {
-            return redirect(route('admin-verifyVehicle'))->with("error", "Invalid Vehicle!");
+            return redirect(route('admin-verifyVehicle'))->with("error", "Vehicle is not registered!");
         }
     }
 }

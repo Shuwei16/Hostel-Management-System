@@ -13,7 +13,17 @@ class ParkingPassSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i = 1; $i <= 15; $i++) {
+        ParkingApplication::create([
+            'student_id' => 1,
+            'make' => 'Perodua',
+            'model' => 'Axia',
+            'year' => '2023',
+            'color' => 'Black',
+            'plate_no' => 'WPV8180',
+            'status' => 'Approved',
+        ]);
+
+        for($i = 2; $i <= 15; $i++) {
             ParkingApplication::create([
                 'student_id' => $i,
                 'make' => 'Perodua',
