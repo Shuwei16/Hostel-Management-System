@@ -3,6 +3,7 @@
 @section('content')
 <style>
     .container {
+        width: 50%;
         text-align: center;
     }
     .col-sm {
@@ -15,9 +16,30 @@
         height: auto;
         background-color: #EFEFEF;
     }
+    .detect-error {
+        margin-top: 20px;
+        display: none;
+    }
+    canvas {
+        display: none;
+    }
     input {
         text-align: center;
         margin-bottom: 5px;
+    }
+    span {
+        font-size: 10px;
+        color: grey;
+    }
+    @media only screen and (max-width: 1000px) {
+        .container {
+            width: 80%;
+        }
+    }
+    @media only screen and (max-width: 800px) {
+        .container {
+            width: 100%;
+        }
     }
 </style>
     <a class="btn btn-secondary" href="admin-vehicleParkingPassApps" title="Back to Parking Application History"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a><br><br>
@@ -48,19 +70,20 @@
                     <video id="video">Video stream not available.</video>
                 </div>
                 <button id="startbutton" class="btn btn-info"><i class="fa fa-camera" aria-hidden="true"></i> Take photo</button>
+                <div id="detectError" class="detect-error alert alert-danger" style="width: 100%">Couldn't detect car plate number. Please try again.</div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm">
-                <p>Step 2: Verify the car plate number</p>
+                <p>Step 2: Confirm the car plate number</p>
+                <span>*Take photo again if the shown car plate number is incorrect.<span>
                 <canvas id="canvas"> </canvas>
-                <form class="input-form" action="{{route('admin-verifyVehicle.post')}}" method="post">
+                <form class="" action="{{route('admin-verifyVehicle.post')}}" method="post">
                     @csrf
                     <input type="text" class="form-control" name="plate_no" id="plate_no" required>
                     <button id="verify" class="btn btn-success" type="submit" disabled><i class="fa fa-check-circle-o" aria-hidden="true"></i> Verify</button>
                 </form>
             </div>
-        </div>
-        <div class="row">
-            
         </div>
         <br>
     </div>
@@ -180,8 +203,10 @@
                         // Remove blank spaces from the result
                         const cleanedResult = result.replace(/\s/g, '');
                         document.getElementById('plate_no').value = cleanedResult;
+                        document.getElementById('detectError').style.display = "none";
                     } else {
                         document.getElementById('plate_no').value = "";
+                        document.getElementById('detectError').style.display = "block";
                     }
 
                     await worker.terminate();
