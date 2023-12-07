@@ -57,6 +57,10 @@
             <td>{{ $profileInfo->current_year }} / {{ $profileInfo->total_year }}</td>
         </tr>
         <tr>
+            <th scope="row" class="table-secondary">Semester of Study</th>
+            <td>{{ $profileInfo->study_semester }}</td>
+        </tr>
+        <tr>
             <th scope="row" class="table-secondary">Resident ID</th>
             <td>{{ $profileInfo->resident_id }}</td>
         </tr>

@@ -65,6 +65,11 @@ class FloorPlanController extends Controller
                                           'students.student_card_no as student_card_no',
                                           'students.contact_no as contact_no',
                                           'students.race as race',
+                                          'students.citizenship as citizenship',
+                                          'students.programme as programme',
+                                          'students.total_year as total_year',
+                                          'students.current_year as current_year',
+                                          'students.study_semester as study_semester',
                                           'students.address as address',
                                           'students.emergency_contact_name as emergency_name',
                                           'students.emergency_contact as emergency_contact')

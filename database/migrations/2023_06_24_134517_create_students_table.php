@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('programme');
             $table->integer('total_year');
             $table->integer('current_year');
+            $table->integer('study_semester');
             $table->text('address')->nullable();
             $table->string('emergency_contact_name')->nullable();
             $table->string('emergency_contact')->nullable();

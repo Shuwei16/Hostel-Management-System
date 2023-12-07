@@ -33,6 +33,7 @@ class ProfileController extends Controller
                               'students.programme as programme',
                               'students.total_year as total_year',
                               'students.current_year as current_year',
+                              'students.study_semester as study_semester',
                               'students.address as address',
                               'students.emergency_contact_name as emergency_contact_name',
                               'students.emergency_contact as emergency_contact',
@@ -60,11 +61,7 @@ class ProfileController extends Controller
                      ->join('students', 'students.user_id', '=', 'users.id')
                      ->join('registrations', 'registrations.student_id', '=', 'students.student_id')
                      ->join('rooms', 'rooms.room_id', 'registrations.room_id')
-                     ->select('students.student_card_no as student_card_no',
-                              'students.programme as programme',
-                              'students.total_year as total_year',
-                              'students.current_year as current_year',
-                              'students.contact_no as contact_no',
+                     ->select('students.contact_no as contact_no',
                               'students.address as address',
                               'students.emergency_contact_name as emergency_contact_name',
                               'students.emergency_contact as emergency_contact')
@@ -81,11 +78,7 @@ class ProfileController extends Controller
 
         $student = Student::where('user_id', $user->id)->first();
         $student->update([
-            'student_card_no' => $request->student_card_no,
             'contact_no' => $request->contact_no,
-            'programme' => $request->programme,
-            'total_year' => $request->total_year,
-            'current_year' => $request->current_year,
             'address' => $request->address_line_1 . "|" . $request->address_line_2 . "|" . $request->postcode . "|" . $request->city . "|" . $request->state . "|" . $request->country,
             'emergency_contact_name' => $request->emergency_contact_name,
             'emergency_contact' => $request->emergency_contact_no

@@ -139,6 +139,45 @@
             </td>
         </tr>
         <tr>
+            <th scope="row" class="table-secondary">Programme Name</th>
+            <td>
+                @if (isset($residents[0]))
+                {{ $residents[0]->programme }}
+                @endif
+            </td>
+            <td>
+                @if (isset($residents[1]))
+                {{ $residents[1]->programme }}
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="table-secondary">Year of Study</th>
+            <td>
+                @if (isset($residents[0]))
+                {{ $residents[0]->current_year }} / {{ $residents[0]->total_year }}
+                @endif
+            </td>
+            <td>
+                @if (isset($residents[1]))
+                {{ $residents[1]->current_year }} / {{ $residents[1]->total_year }}
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="table-secondary">Semester of Study</th>
+            <td>
+                @if (isset($residents[0]))
+                {{ $residents[0]->study_semester }}
+                @endif
+            </td>
+            <td>
+                @if (isset($residents[1]))
+                {{ $residents[1]->study_semester }}
+                @endif
+            </td>
+        </tr>
+        <tr>
             <th scope="row" class="table-secondary">Contact No.</th>
             <td>
                 @if (isset($residents[0]))
@@ -174,6 +213,19 @@
             <td>
                 @if (isset($residents[1]))
                 {{ $residents[1]->race }}
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="table-secondary">Citizenship</th>
+            <td>
+                @if (isset($residents[0]))
+                {{ $residents[0]->citizenship }}
+                @endif
+            </td>
+            <td>
+                @if (isset($residents[1]))
+                {{ $residents[1]->citizenship }}
                 @endif
             </td>
         </tr>

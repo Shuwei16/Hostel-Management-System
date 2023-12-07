@@ -29,6 +29,7 @@ class DashboardController extends Controller
         $semOccupancy = Registration::join('semesters', 'semesters.semester_id', '=', 'registrations.semester_id')
                                     ->select('semester_name', \DB::raw('COUNT(registrations.registration_id) as total_number'))
                                     ->groupBy('semester_name')
+                                    ->orderBy('semesters.semester_id')
                                     ->get();
 
         return view('admin/dashboard/dashboard', compact('semester', 'totalRegistrations', 'newRegistrations', 'roomOccupancy', 'semOccupancy'));
@@ -53,6 +54,7 @@ class DashboardController extends Controller
         $semOccupancy = Registration::join('semesters', 'semesters.semester_id', '=', 'registrations.semester_id')
                                     ->select('semester_name', \DB::raw('COUNT(registrations.registration_id) as total_number'))
                                     ->groupBy('semester_name')
+                                    ->orderBy('semesters.semester_id')
                                     ->get();
 
         return view('admin/dashboard/printReport', compact('semester', 'totalRegistrations', 'newRegistrations', 'roomOccupancy', 'semOccupancy'));

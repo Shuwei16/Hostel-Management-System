@@ -86,6 +86,15 @@ class PaymentController extends Controller
             
             $prevRegistration->update(['status' => "Extended"]);
 
+            $student = Student::find($registration->student_id)->first();
+            if($student->current_year <= $student->total_year) {
+                if($student->study_semester < 3) {
+                    $student->update(['study_semester' => $student->study_semester++]);
+                }else{
+                    $student->update(['study_semester' => 1, 'current_year' => $student->current_year++]);
+                }
+            }
+
             return redirect(route('resident-registrationDetails', ['id'=>$request->id]))->with("success", "Payment Successfully");
         }
     }

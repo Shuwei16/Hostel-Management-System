@@ -68,7 +68,8 @@ class RegistrationController extends Controller
             'citizenship' => 'required|in:Citizen,Non-citizen',
             'programme' => 'required',
             'total_year' => 'required',
-            'current_year' => 'required'
+            'current_year' => 'required',
+            'study_semester' => 'required'
         ]);
 
         // find available rooms
@@ -105,6 +106,7 @@ class RegistrationController extends Controller
             $student_data['programme'] = $request->programme;
             $student_data['total_year'] = $request->total_year;
             $student_data['current_year'] = $request->current_year;
+            $student_data['study_semester'] = $request->study_semester;
             $student = Student::create($student_data);
         } else {
             // update student info
@@ -117,6 +119,7 @@ class RegistrationController extends Controller
             $student->programme = $request->programme;
             $student->total_year = $request->total_year;
             $student->current_year = $request->current_year;
+            $student->study_semester = $request->study_semester;
             $student->save();
         }
 
@@ -316,7 +319,7 @@ class RegistrationController extends Controller
         ]);
 
         // save updated contact no
-        $student = Student::find($request->student_id);
+        $student = Student::find($request->student_id)->first();
         $student->update(['contact_no' => $request->contact_no]);
 
          // store registration info

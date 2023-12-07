@@ -31,6 +31,7 @@ class StudentSeeder extends Seeder
                 'programme' => "Bachelor's of Software Engineering",
                 'total_year' => 3,
                 'current_year' => 2,
+                'study_semester' => 1,
                 'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
                 'emergency_contact_name' => "Lee Ah Meng",
                 'emergency_contact' => "0166666666"
@@ -55,6 +56,7 @@ class StudentSeeder extends Seeder
                 'programme' => "Bachelor's of Software Engineering",
                 'total_year' => 3,
                 'current_year' => 2,
+                'study_semester' => 1,
                 'address' => "6, Jalan Merah|Taman Merah|53000|Setapak|Kuala Lumpur|Malaysia",
                 'emergency_contact_name' => "Lee Ah Meng",
                 'emergency_contact' => "0166666666"

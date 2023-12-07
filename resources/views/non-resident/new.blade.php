@@ -120,7 +120,7 @@
                             <td>
                                 <label for="gender">Gender</label>
                                 <select name="gender" name="gender" class="form-control" id="gender">
-                                    <option value="">- select gender -</option>
+                                    <option value="" selected disabled>- select gender -</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -128,7 +128,7 @@
                             <td>
                                 <label for="race">Race</label>
                                 <select name="race" name="race" class="form-control" id="race">
-                                    <option value="">- select race -</option>
+                                    <option value="" selected disabled>- select race -</option>
                                     <option value="Chinese">Chinese</option>
                                     <option value="Malay">Malay</option>
                                     <option value="Indian">Indian</option>
@@ -148,15 +148,36 @@
                         <tr>
                             <td>
                                 <label for="total_year">Total Year of Study</label>
-                                <input type="number" class="form-control" name="total_year" id="total_year" placeholder="e.g. 3" pattern="[1-9]" required>
+                                <select name="total_year" name="total_year" class="form-control" id="total_year">
+                                    <option value="" selected disabled>- select total year of study -</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
                             </td>
                             <td>
                                 <label for="current_year">Current Year of Study</label>
-                                <input type="number" class="form-control" name="current_year" id="current_year" placeholder="e.g. 1" pattern="[1-9]" required>
+                                <select name="current_year" name="current_year" class="form-control" id="current_year">
+                                    <option value="" selected disabled>- select current year of study -</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
                             </td>
                         </tr>
                     </table>
                     <br>
+                </div>
+                <div class="form-group">
+                    <label for="study_semester">Semester of Study</label>
+                    <select name="study_semester" name="study_semester" class="form-control" id="study_semester">
+                        <option value="" selected disabled>- select current semester of study -</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                 </div>
                 <br>
                 <div class="form-check">
