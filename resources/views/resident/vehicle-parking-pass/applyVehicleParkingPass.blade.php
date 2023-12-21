@@ -24,7 +24,7 @@
     @if ($appliedPass !== null)
         <p class="alert alert-danger">You have already applied for a vehicle parking pass.</p>
     @else
-        <form class="input-form" action="{{ route('resident-applyVehicleParkingPass.post') }}" method="post" onsubmit="confirm('Are you sure to apply parking pass for this vehicle?')">
+        <form class="input-form" action="{{ route('resident-applyVehicleParkingPass.post') }}" method="post" onsubmit="return confirm('Are you sure to apply parking pass for this vehicle?')">
             @csrf
             <div class="form-group">
                 <label for="make">Make</label>

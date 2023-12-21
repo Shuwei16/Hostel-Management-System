@@ -336,7 +336,7 @@ class RegistrationController extends Controller
          $registration_data['status'] = "Pending Payment";
          $registration = Registration::create($registration_data);
 
-         return redirect(route('resident-registrationDetails', ['id'=>$registration->registration_id]))->with("success", "Registration Success! A room is assign to you! You are required to make payment to complete the registration.");
+         return redirect(route('resident-registrationDetails', ['id'=>$registration->registration_id]))->with("success", "Registration Success! You are required to make payment to complete the registration.");
     }
 
     /*Admin side*/

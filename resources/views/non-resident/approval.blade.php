@@ -115,7 +115,7 @@
                     
                     @if($withdrawAvailability == true)
                     <!--Cancel Button-->
-                    <form action="{{ route('non-resident-approval.cancel', $registration->registration_id) }}" method="post">
+                    <form action="{{ route('non-resident-approval.cancel', $registration->registration_id) }}" method="post" onclick="return confirm('Are you sure to cancel this registration?');">
                         @csrf
                         @method('put')
                         <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel Registration</button>
@@ -133,7 +133,7 @@
                     
                     @if($withdrawAvailability == true)
                     <!--Cancel Button-->
-                    <form action="{{ route('non-resident-approval.cancel', $registration->registration_id) }}" method="post">
+                    <form action="{{ route('non-resident-approval.cancel', $registration->registration_id) }}" method="post" onclick="return confirm('Are you sure to cancel this registration?');">
                         @csrf
                         @method('put')
                         <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel Registration</button>

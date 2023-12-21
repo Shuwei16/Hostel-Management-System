@@ -23,16 +23,14 @@ class ParkingPassSeeder extends Seeder
             'status' => 'Approved',
         ]);
 
-        for($i = 2; $i <= 15; $i++) {
-            ParkingApplication::create([
-                'student_id' => $i,
-                'make' => 'Perodua',
-                'model' => 'Axia',
-                'year' => '2023',
-                'color' => 'Black',
-                'plate_no' => 'WWW1234',
-                'status' => 'Pending Approval',
-            ]);
-        }
+        ParkingApplication::create([
+            'student_id' => 2,
+            'make' => 'Perodua',
+            'model' => 'Axia',
+            'year' => '2023',
+            'color' => 'Black',
+            'plate_no' => 'JFC2218',
+            'status' => 'Pending Approval',
+        ]);
     }
 }

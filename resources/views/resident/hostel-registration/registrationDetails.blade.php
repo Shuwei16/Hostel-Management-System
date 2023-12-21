@@ -113,7 +113,7 @@
                     
                     @if($withdrawAvailability == true && $registration->status != "Checked In")
                     <!--Cancel Button-->
-                    <form action="{{ route('resident-registrationDetails.cancel', $registration->registration_id) }}" method="post">
+                    <form action="{{ route('resident-registrationDetails.cancel', $registration->registration_id) }}" method="post" onsubmit="return confirm('Are you sure to cancel this registration?')">
                         @csrf
                         @method('put')
                         <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel Registration</button>
@@ -131,7 +131,7 @@
                     
                     @if($withdrawAvailability == true && $registration->status != "Checked In")
                     <!--Cancel Button-->
-                    <form action="{{ route('resident-registrationDetails.cancel', $registration->registration_id) }}" method="post">
+                    <form action="{{ route('resident-registrationDetails.cancel', $registration->registration_id) }}" method="post" onsubmit="return confirm('Are you sure to cancel this registration?')">
                         @csrf
                         @method('put')
                         <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel Registration</button>

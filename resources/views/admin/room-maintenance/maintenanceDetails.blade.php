@@ -77,7 +77,7 @@
             <td>
                 @if ($maintenance->status == 'Applied')
                 <!--Mark as Done Button-->
-                <form action="{{route('admin-maintenanceDetails.done', ['id'=>$maintenance->maintenance_booking_id])}}" method="post" onsubmit="confirm('Are you sure to mark this maintenance as done?')">
+                <form action="{{route('admin-maintenanceDetails.done', ['id'=>$maintenance->maintenance_booking_id])}}" method="post" onsubmit="return confirm('Are you sure to mark this maintenance as done?')">
                     @csrf
                     @method('put')
                     <button type="submit" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i> Mark As Done</button>

@@ -25,16 +25,29 @@ class RegistrationSeeder extends Seeder
                 $room_id++;
             }
 
-            Registration::create([
-                'student_id' => $i,
-                'semester_id' => 1,
-                'room_id' => $room_id,
-                'registration_type' => "New Resident",
-                'payment_due_date' => Carbon::parse($currentDate)->addWeek(),
-                'withdrawal_due_date' => Carbon::parse($currentDate)->addWeek(),
-                'check_in_date' => now(),
-                'status' => "Checked In"
-            ]);
+            if($i == 1) {
+                Registration::create([
+                    'student_id' => $i,
+                    'semester_id' => 1,
+                    'room_id' => $room_id,
+                    'registration_type' => "New Resident",
+                    'payment_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'withdrawal_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'check_in_date' => now(),
+                    'status' => "Payment Completed"
+                ]);
+            } else {
+                Registration::create([
+                    'student_id' => $i,
+                    'semester_id' => 1,
+                    'room_id' => $room_id,
+                    'registration_type' => "New Resident",
+                    'payment_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'withdrawal_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'check_in_date' => now(),
+                    'status' => "Checked In"
+                ]);
+            }
 
             for($j=2; $j <= 4; $j++) {
                 Registration::create([
@@ -61,16 +74,29 @@ class RegistrationSeeder extends Seeder
                 $room_id++;
             }
 
-            Registration::create([
-                'student_id' => $i,
-                'semester_id' => 1,
-                'room_id' => $room_id,
-                'registration_type' => "New Resident",
-                'payment_due_date' => Carbon::parse($currentDate)->addWeek(),
-                'withdrawal_due_date' => Carbon::parse($currentDate)->addWeek(),
-                'check_in_date' => now(),
-                'status' => "Checked In"
-            ]);
+            if($i == 151) {
+                Registration::create([
+                    'student_id' => $i,
+                    'semester_id' => 1,
+                    'room_id' => $room_id,
+                    'registration_type' => "New Resident",
+                    'payment_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'withdrawal_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'check_in_date' => now(),
+                    'status' => "Payment Completed"
+                ]);
+            } else {
+                Registration::create([
+                    'student_id' => $i,
+                    'semester_id' => 1,
+                    'room_id' => $room_id,
+                    'registration_type' => "New Resident",
+                    'payment_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'withdrawal_due_date' => Carbon::parse($currentDate)->addWeek(),
+                    'check_in_date' => now(),
+                    'status' => "Checked In"
+                ]);
+            }
 
             for($j=2; $j <= 4; $j++) {
                 Registration::create([

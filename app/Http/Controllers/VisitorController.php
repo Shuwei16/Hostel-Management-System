@@ -37,7 +37,7 @@ class VisitorController extends Controller
             'status' => 'Pending Approval',
         ]);
 
-        return view('resident/visitor-registration/addVisitorRegistration')->with('success', 'Your visitor has been registered successfully! Please wait for the approval.');
+        return redirect(route('resident-visitorRegistrationDetails', ['id'=>$visitor->visitor_reg_id]))->with("success", "Your visitor has been registered successfully! Please wait for the approval.");
     }
 
     function visitorRegistrationList() {
@@ -207,7 +207,7 @@ class VisitorController extends Controller
             }
             
         } else {
-            return redirect(route('admin-visitorRegistration'))->with("error", "Visitor registration not exist.");
+            return redirect(route('admin-visitorRegistration'))->with("error", "Invalid QR code.");
         }
     }
 }

@@ -56,7 +56,7 @@
     
     <h1>Announcements Details</h1>
         <!-- delete button -->
-        <form action="{{ route('admin-deleteAnnouncement', ['id'=>$announcement->announcement_id]) }}" method="post" onsubmit="confirm('Are you sure to delete this announcement?');">
+        <form action="{{ route('admin-deleteAnnouncement', ['id'=>$announcement->announcement_id]) }}" method="post" onsubmit="return confirm('Are you sure to delete this announcement?');">
             @csrf
             @method('delete')
             <button class="btn btn-danger" type="submit" title="Delete Annoucement" style="font-size: 1vmax; float: right;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>

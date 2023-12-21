@@ -24,7 +24,7 @@
         <p class="alert alert-danger">Room stay extension application is not available yet. Please wait for the next new semester.</p>
     <!-- Extension registration available -->
     @elseif ($registration == null || $registration->status == "Canceled" || $registration->status == "Failed" || $registration->status == "Payment Failed")
-        <form class="input-form" action="{{route('resident-extensionRegistration.post')}}" method="post">
+        <form class="input-form" action="{{route('resident-extensionRegistration.post')}}" method="post" onsubmit="return confirm('Are you sure to submit this extension registration?')">
             @csrf
             <input type="hidden" class="form-control" name="semester_id" id="semester_id" placeholder="semester_id" value="{{ $semester->semester_id }}">
             <input type="hidden" class="form-control" name="student_id" id="student_id" placeholder="student_id" value="{{ $student->student_id }}">

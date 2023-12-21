@@ -65,7 +65,7 @@
             <td>
                 @if ($maintenance->status == 'Applied')
                 <!--Cancel Button-->
-                <form action="{{route('resident-maintenanceDetails.cancel', ['id'=>$maintenance->maintenance_booking_id])}}" method="post" onsubmit="confirm('Are you sure to canceled this maintenance booking?')">
+                <form action="{{route('resident-maintenanceDetails.cancel', ['id'=>$maintenance->maintenance_booking_id])}}" method="post" onsubmit="return confirm('Are you sure to canceled this maintenance booking?')">
                     @csrf
                     @method('put')
                     <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>

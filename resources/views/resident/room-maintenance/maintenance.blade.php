@@ -1,7 +1,7 @@
 @extends('layouts/master_resident')
 
 @section('content')
-    <h1>Maintenance Booking History <a class="btn btn-success" href="{{route('resident-addMaintenance')}}" title="Add Maintenaces" style="font-size: 1vmax; float: right;"><i class="fa fa-plus" aria-hidden="true"></i> Apply New Maintenance</a></h1><br>
+    <h1>Maintenance Booking History <a class="btn btn-success" href="{{route('resident-addMaintenance')}}" title="Add Maintenaces" style="font-size: 1vmax; float: right;"><i class="fa fa-plus" aria-hidden="true"></i> Book New Maintenance</a></h1><br>
     <!-- Any error within the page -->
     @if($errors->any())
         <div class="col-12">

@@ -14,14 +14,21 @@ class MaintenanceSeeder extends Seeder
      */
     public function run(): void
     {
+        $dates = [];
         // Get the current date
         $currentDate = now();
+        // Calculate the date for the this Monday
+        $thisMondayDate = $currentDate->copy()->startOfWeek();
+        // Calculate the date for the this Friday
+        $thisFridayDate = $thisMondayDate->copy()->addDays(4);
         // Calculate the date for the next Monday
-        $nextMondayDate = $currentDate->addDays(7)->startOfWeek();
+        $nextMondayDate = $currentDate->copy()->addDays(7)->startOfWeek();
         // Calculate the date for the next Friday
         $nextFridayDate = $nextMondayDate->copy()->addDays(4);
-
-        $dates = [];
+        // Store all this week's dates
+        for ($date = $thisMondayDate; $date->lte($thisFridayDate); $date->addDay()) {
+            $dates[] = $date->toDateString();
+        }
         // Store all next week's dates
         for ($date = $nextMondayDate; $date->lte($nextFridayDate); $date->addDay()) {
             $dates[] = $date->toDateString();

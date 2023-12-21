@@ -113,125 +113,124 @@
     }
 </style>
 
-    <h1>Residents' Messages</h1>
-    
-    <table class="table-details">
-        <tr>
-            <th class="chat-list-container" style="width: 30%">
-                <table style="font-size: 1vmax">
-                    <tr class="message-header">
-                        <td>Messages</td>
-                    </tr>
-                    <tr class="chat-list">
-                        <td>
-                            <form action="{{route('admin-message.search')}}" method="GET" style="width: 100%">
-                                @csrf
-                                <input type="text" class="form-control" name="search" id="search" placeholder="Search or start a new chat..." aria-label="comment" aria-describedby="basic-addon2" required>
-                            </form>
-                            <form id="chatForm" action="{{route('admin-message.select')}}" method="post" style="width: 100%">
-                                @csrf
-                                <input type="hidden" class="form-control" name="user" id="user" required>
-                                <ul>
-                                    @if(!$residents->isEmpty())
-                                        @foreach($residents as $item)
-                                        <li @if($user->user_id == $item->user_id) style="background-color: #CDD7DF;" @endif data-value="{{$item->user_id}}">
-                                            @php
-                                                $message = '...';
-                                                $status = '';
-                                                foreach($chats as $chatItem) {
-                                                    if(($chatItem->receiver_id == $item->user_id || $chatItem->sender_id == $item->user_id)) {
-                                                        $message = $chatItem->message;
-                                                        if($chatItem->receiver_id == auth()->id()) {
-                                                            $status = $chatItem->status;
-                                                        }
+<h1>Residents' Messages</h1>
+
+<table class="table-details">
+    <tr>
+        <th class="chat-list-container" style="width: 30%">
+            <table style="font-size: 1vmax">
+                <tr class="message-header">
+                    <td>Messages</td>
+                </tr>
+                <tr class="chat-list">
+                    <td>
+                        <form action="{{route('admin-message.search')}}" method="GET" style="width: 100%">
+                            @csrf
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search or start a new chat..." aria-label="comment" aria-describedby="basic-addon2" required>
+                        </form>
+                        <form id="chatForm" action="{{route('admin-message.select')}}" method="post" style="width: 100%">
+                            @csrf
+                            <input type="hidden" class="form-control" name="user" id="user" required>
+                            <ul>
+                                @if(!$residents->isEmpty())
+                                    @foreach($residents as $item)
+                                    <li @if($user->user_id == $item->user_id) style="background-color: #CDD7DF;" @endif data-value="{{$item->user_id}}">
+                                        @php
+                                            $message = '...';
+                                            $status = '';
+                                            foreach($chats as $chatItem) {
+                                                if(($chatItem->receiver_id == $item->user_id || $chatItem->sender_id == $item->user_id)) {
+                                                    $message = $chatItem->message;
+                                                    if($chatItem->receiver_id == auth()->id()) {
+                                                        $status = $chatItem->status;
                                                     }
                                                 }
-                                            @endphp
-                                            <img src="@if ($item->gender == 'Male') {{ asset('images/male.png') }} @else {{ asset('images/female.png') }} @endif" />
-                                            <div>{{$item->room_code}} - {{$item->name}} @if($status == 'sent')<span style="float: right; width: 10px; height: 10px; border-radius: 50%; background-color: red; "></span>@endif<br>
-                                                <span>{{ Str::limit($message, 10, '...') }}</span>
-                                            </div>
-                                        </li>
-                                        @endforeach
-                                    @else
-                                    <div class="alert alert-danger" style="width: 100%">No resident found.</div>
-                                    @endif
-                                </ul>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </th>
-            <td>
-                <table class="table-details">
-                    <tr class="chat-header">
-                        <td style="width: 10%"><div class="chat-user-icon"><img src="@if($user != '') @if ($user->gender == 'Male') {{ asset('images/male.png') }} @else {{ asset('images/female.png') }} @endif @endif" /></div></td>
-                        <td>@if($user != '') {{$user->room_code}} - {{$user->name}} @endif</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <div class="chat-messages" id="chat-messages">
-                            @if($messages != '')
-                                @foreach($messages as $item)
-                                    <div class="message @if($item->sender_id == auth()->id()) sent @else received @endif">{!! nl2br(e($item->message)) !!}</div>
-                                @endforeach
-                                @if($messages->isEmpty())
-                                    <div class="alert alert-warning" style="width: 100%">Send a message to start a new chat now.</div>
+                                            }
+                                        @endphp
+                                        <img src="@if ($item->gender == 'Male') {{ asset('images/male.png') }} @else {{ asset('images/female.png') }} @endif" />
+                                        <div>{{$item->room_code}} - {{$item->name}} @if($status == 'sent')<span style="float: right; width: 10px; height: 10px; border-radius: 50%; background-color: red; "></span>@endif<br>
+                                            <span>{{ Str::limit($message, 10, '...') }}</span>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                @else
+                                <div class="alert alert-danger" style="width: 100%">No resident found.</div>
                                 @endif
+                            </ul>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </th>
+        <td>
+            <table class="table-details">
+                <tr class="chat-header">
+                    <td style="width: 10%"><div class="chat-user-icon"><img src="@if($user != '') @if ($user->gender == 'Male') {{ asset('images/male.png') }} @else {{ asset('images/female.png') }} @endif @endif" /></div></td>
+                    <td>@if($user != '') {{$user->room_code}} - {{$user->name}} @endif</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="chat-messages" id="chat-messages">
+                        @if($messages != '')
+                            @foreach($messages as $item)
+                                <div class="message @if($item->sender_id == auth()->id()) sent @else received @endif">{!! nl2br(e($item->message)) !!}</div>
+                            @endforeach
+                            @if($messages->isEmpty())
+                                <div class="alert alert-warning" style="width: 100%">Send a message to start a new chat now.</div>
                             @endif
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="chat-input">
-                            <form action="@if($user != '') {{route('admin-message.post')}}  @endif" method="post" style="width: 100%">
-                                @csrf
-                                <div class="input-group mb-3">
-                                    <input type="hidden" class="form-control" name="user_id" id="user_id" value="@if($user != '') {{$user->user_id}} @endif" required>
-                                    <textarea class="form-control" name="message" id="message" placeholder="Type your message..." rows="1" required></textarea>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                                    </div>
+                        @endif
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="chat-input">
+                        <form action="@if($user != '') {{route('admin-message.post')}}  @endif" method="post" style="width: 100%">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <input type="hidden" class="form-control" name="user_id" id="user_id" value="@if($user != '') {{$user->user_id}} @endif" required>
+                                <textarea class="form-control" name="message" id="message" placeholder="Type your message..." rows="1" required></textarea>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                 </div>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        function scrollToBottom() {
-            var chatContainer = document.getElementById('chat-messages');
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-        function adjustMessageWidth() {
-            var messages = document.querySelectorAll('.message');
-            messages.forEach(function(message) {
-                var containerWidth = document.getElementById('chat-messages').offsetWidth;
-                var maxWidthPercentage = 70; // Set the maximum width percentage
-                var maxWidth = (containerWidth * maxWidthPercentage) / 100;
-                
-                message.style.maxWidth = maxWidth + 'px';
-            });
-        }
-        window.onload = function() {
-            scrollToBottom();
-            adjustMessageWidth();
-        };
-        window.onresize = function() {
-            adjustMessageWidth();
-        };
-        $(document).ready(function() {
-            $('#chatForm li').on('click', function() {
-                var selectedValue = $(this).data('value');
-                $('#user').val(selectedValue);
-                console.log(selectedValue);
-                document.getElementById('chatForm').submit();
-            });
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function scrollToBottom() {
+        var chatContainer = document.getElementById('chat-messages');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    function adjustMessageWidth() {
+        var messages = document.querySelectorAll('.message');
+        messages.forEach(function(message) {
+            var containerWidth = document.getElementById('chat-messages').offsetWidth;
+            var maxWidthPercentage = 70; // Set the maximum width percentage
+            var maxWidth = (containerWidth * maxWidthPercentage) / 100;
+            
+            message.style.maxWidth = maxWidth + 'px';
         });
-    </script>
+    }
+    window.onload = function() {
+        scrollToBottom();
+        adjustMessageWidth();
+    };
+    window.onresize = function() {
+        adjustMessageWidth();
+    };
+    $(document).ready(function() {
+        $('#chatForm li').on('click', function() {
+            var selectedValue = $(this).data('value');
+            $('#user').val(selectedValue);
+            console.log(selectedValue);
+            document.getElementById('chatForm').submit();
+        });
+    });
+</script>
 
 @endsection

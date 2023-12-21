@@ -20,7 +20,7 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <form class="input-form" action="{{route('admin-addAnnouncement.post')}}" method="post" enctype="multipart/form-data" onsubmit="confirm('Are you sure to add this announcement?');">
+    <form class="input-form" id="inputForm" action="{{route('admin-addAnnouncement.post')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
@@ -81,7 +81,7 @@
 
         <br>
         <div class="btn-submit">
-            <button type="submit">Add</button><br><br>
+            <button type="button" onclick="formSubmission()">Add</button><br><br>
         </div>
     </form>
 
@@ -130,6 +130,16 @@
 
         // Call the function to set the initial state based on the selected option
         toggleInputField();
-        
+
+        function formSubmission() {
+            // Display a confirmation dialog
+            if (confirm('Are you sure to add this announcement?')) {
+                // If the user clicks "OK," submit the form
+                document.getElementById('inputForm').submit();
+            } else {
+                // If the user clicks "Cancel," do nothing or provide additional handling
+                event.preventDefault();
+            }
+        }
     </script>
 @endsection

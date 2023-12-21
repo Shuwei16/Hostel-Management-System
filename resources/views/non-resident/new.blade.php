@@ -31,7 +31,7 @@
             <p class="alert alert-danger">Sorry, all rooms are fully booked.</p>
         <!-- Application is still available, show registration form -->
         @else
-            <form class="input-form" action="{{route('non-resident-new.post')}}" method="post">
+            <form class="input-form" action="{{route('non-resident-new.post')}}" method="post" onsubmit="return confirm('Are you sure to submit this new registration?');">
                 @csrf
                 <input type="hidden" class="form-control" name="semester_id" id="semester_id" placeholder="semester_id" value="{{ $semester->semester_id }}">
                 <input type="hidden" class="form-control" name="user_id" id="user_id" placeholder="user_id" value="{{auth()->user()->id}}">

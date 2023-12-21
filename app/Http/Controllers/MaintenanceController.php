@@ -66,7 +66,7 @@ class MaintenanceController extends Controller
         $student = Student::where('user_id', '=', auth()->id())->first();
 
         // new maintenance booking
-        MaintenanceBooking::create([
+        $maintenance = MaintenanceBooking::create([
             'slot_id' => $request->selected_slot,
             'student_id' => $student->student_id,
             'maintenance_type' => $request->maintenance_type,
@@ -78,7 +78,7 @@ class MaintenanceController extends Controller
         MaintenanceSlot::where('slot_id', $request->selected_slot)
                        ->update(['status' => '0']);
 
-        return redirect(route('resident-maintenance'))->with("success", "Your room maintenance has been booked successfully!");
+        return redirect(route('resident-maintenanceDetails', ['id' => $maintenance->maintenance_booking_id]))->with("success", "Your room maintenance has been booked successfully!");
     }
 
     // Change slots selection based on selected date

@@ -9,7 +9,7 @@ use App\Models\Student;
 use App\Models\Room;
 use App\Models\Block;
 use App\Models\Registration;
-use App\Models\VehicleParking;
+use App\Models\ParkingApplication;
 use Illuminate\Support\Carbon;
 
 class FloorPlanController extends Controller
@@ -143,8 +143,8 @@ class FloorPlanController extends Controller
         $registration->save();
 
         // remove parking pass
-        $vehiclePass = VehicleParking::where('student_id', '=', $student->student_id)->first();
-        if(!$vehiclePass->isEmpty()) {
+        $vehiclePass = ParkingApplication::where('student_id', '=', $student->student_id)->first();
+        if($vehiclePass != null) {
             $vehiclePass->update(['status' => 'Expired']);
         }
 

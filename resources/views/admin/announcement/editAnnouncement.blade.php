@@ -20,7 +20,7 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <form class="input-form" action="{{route('admin-editAnnouncement.post', ['id'=>$announcement->announcement_id])}}" method="post" onsubmit="confirm('Are you sure to edit this announcement?');">
+    <form class="input-form" id="inputForm" action="{{route('admin-editAnnouncement.post', ['id'=>$announcement->announcement_id])}}" method="post">
         @csrf
         <input type="hidden" class="form-control" name="announcement_id" id="announcement_id" placeholder="" value="{{ $announcement->announcement_id }}" required>
 
@@ -71,7 +71,7 @@
 
         <br>
         <div class="btn-submit">
-            <button type="submit">Edit</button><br><br>
+            <button type="button" onclick="formSubmission()">Edit</button><br><br>
         </div>
     </form>
 
@@ -113,6 +113,16 @@
         announcedBlockSelect.addEventListener('change', toggleInputField);
         // Add an event listener to the "Announced Gender" dropdown to update the state when its value changes
         announcedGenderSelect.addEventListener('change', toggleInputField);
-        
+
+        function formSubmission() {
+            // Display a confirmation dialog
+            if (confirm('Are you sure to edit this announcement?')) {
+                // If the user clicks "OK," submit the form
+                document.getElementById('inputForm').submit();
+            } else {
+                // If the user clicks "Cancel," do nothing or provide additional handling
+                event.preventDefault();
+            }
+        }
     </script>
 @endsection

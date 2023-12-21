@@ -61,7 +61,7 @@
                 <button type="button" class="btn btn-primary btn-sm btn-action" onclick="window.location.href = '{{route('resident-updateVehicleInfo', ['id'=>$application->parking_application_id])}}'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update</button>
 
                 <!--Cancel Button-->
-                <form action="{{route('resident-vehicleParkingPass.cancel', ['id'=>$application->parking_application_id])}}" method="post" onsubmit="confirm('Are you sure to cancel this vehicle parking pass?')">
+                <form action="{{route('resident-vehicleParkingPass.cancel', ['id'=>$application->parking_application_id])}}" method="post" onsubmit="return confirm('Are you sure to cancel this vehicle parking pass?')">
                     @csrf
                     @method('put')
                     <button type="submit" class="btn btn-danger btn-sm btn-action"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>

@@ -48,7 +48,7 @@
         <div class="alert alert-success" style="width: 100%">{{session('success')}}</div>
     @endif
 
-    <form class="input-form" id="inputForm" action="{{ route('resident-addMaintenance.action') }}" method="post" onsubmit="confirm('Are you sure to book this appointment for room maintenance?');">
+    <form class="input-form" id="inputForm" action="{{ route('resident-addMaintenance.action') }}" method="post">
         @csrf
         <div class="form-group">
             Dear residents, if there is any maintenance to be done in your room, you are required to make an appointment on the time and date one week before. All maintanances only available on weekdays only.
@@ -122,8 +122,17 @@
     <script>
         // Confirm whether it is submit the form when calling post method
         document.getElementById('btn-submit').addEventListener('click', function() {
-            document.getElementById('inputForm').setAttribute('method', 'post');
-            document.getElementById('inputForm').submit();
+            var isConfirmed = confirm('Are you sure to book this appointment for room maintenance?');
+
+            // Check if the user confirmed
+            if (isConfirmed) {
+                // If confirmed, change the form method and submit
+                document.getElementById('inputForm').setAttribute('method', 'post');
+                document.getElementById('inputForm').submit();
+            } else {
+                // If not confirmed, prevent the default form submission
+                event.preventDefault();
+            }
         });
 
         // Change the slots selection based on the date selection (submit form to call the post method)

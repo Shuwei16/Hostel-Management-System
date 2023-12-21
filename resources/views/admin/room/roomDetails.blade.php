@@ -274,14 +274,14 @@
                 @if (isset($residents[0]))
                     @if($residents[0]->status == "Payment Completed")
                         <!--Check In Button-->
-                        <form action="{{ route('admin-roomCheckIn', ['room_id' => $room->room_id, 'user_id' => $residents[0]->user_id, 'registration_id' => $residents[0]->registration_id]) }}" method="post">
+                        <form action="{{ route('admin-roomCheckIn', ['room_id' => $room->room_id, 'user_id' => $residents[0]->user_id, 'registration_id' => $residents[0]->registration_id]) }}" method="post" onsubmit="return confirm('Are you sure to check in the room for this resident?')">
                             @csrf
                             @method('put')
                             <button type="submit" class="btn btn-success btn-sm btn-action">Check In</button>
                         </form>
                     @elseif($residents[0]->status == "Checked In")
                         <!--Check Out Button-->
-                        <form action="{{ route('admin-roomCheckOut', ['room_id' => $room->room_id, 'user_id' => $residents[0]->user_id, 'registration_id' => $residents[0]->registration_id]) }}" method="post">
+                        <form action="{{ route('admin-roomCheckOut', ['room_id' => $room->room_id, 'user_id' => $residents[0]->user_id, 'registration_id' => $residents[0]->registration_id]) }}" method="post" onsubmit="return confirm('Are you sure to check out the room for this resident?')">
                             @csrf
                             @method('put')
                             <button type="submit" class="btn btn-danger btn-sm btn-action">Check Out</button>
@@ -293,14 +293,14 @@
                 @if (isset($residents[1]))
                     @if($residents[1]->status == "Payment Completed")
                         <!--Check In Button-->
-                        <form action="{{ route('admin-roomCheckIn', ['room_id' => $room->room_id, 'user_id' => $residents[1]->user_id, 'registration_id' => $residents[1]->registration_id]) }}" method="post">
+                        <form action="{{ route('admin-roomCheckIn', ['room_id' => $room->room_id, 'user_id' => $residents[1]->user_id, 'registration_id' => $residents[1]->registration_id]) }}" method="post" onsubmit="return confirm('Are you sure to check in the room for this resident?')">
                             @csrf
                             @method('put')
                             <button type="submit" class="btn btn-success btn-sm btn-action">Check In</button>
                         </form>
                     @elseif($residents[1]->status == "Checked In")
                         <!--Check Out Button-->
-                        <form action="{{ route('admin-roomCheckOut', ['room_id' => $room->room_id, 'user_id' => $residents[1]->user_id, 'registration_id' => $residents[1]->registration_id]) }}" method="post">
+                        <form action="{{ route('admin-roomCheckOut', ['room_id' => $room->room_id, 'user_id' => $residents[1]->user_id, 'registration_id' => $residents[1]->registration_id]) }}" method="post" onsubmit="return confirm('Are you sure to check out the room for this resident?')">
                             @csrf
                             @method('put')
                             <button type="submit" class="btn btn-danger btn-sm btn-action">Check Out</button>

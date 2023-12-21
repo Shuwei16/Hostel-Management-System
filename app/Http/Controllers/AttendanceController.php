@@ -123,8 +123,6 @@ class AttendanceController extends Controller
             'student_id' => $residentInfo->student_id,
             'attendance_type' => $type
         ]);
-
-        
     }
 
     public function showAllAttendances() {
