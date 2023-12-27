@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\VisitorRegistration;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\File;
 
 class VisitorSeeder extends Seeder
 {
@@ -26,5 +28,18 @@ class VisitorSeeder extends Seeder
                 'status' => 'Pending Approval',
             ]);
         }
+
+        //dummy data for the first approved visitor
+        // Generate a QR code
+        $qrCode = QrCode::format('svg')->size(200)->generate('admin-visitorRegistrationDetails-1');
+
+        // Store the QR code
+        $directoryPath = public_path('images/visitorQR');
+        $fileName = 'visitor_' . time() . '.svg';
+        File::put($directoryPath . '/' . $fileName, $qrCode);
+
+        // Save QR code in db
+        VisitorRegistration::find(1)
+                           ->update(['status' => 'Approved', 'qr_code' => $fileName]);
     }
 }
